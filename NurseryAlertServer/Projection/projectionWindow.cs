@@ -28,10 +28,10 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Pbp.Properties;
+using NurseryAlertServer.Properties;
 using System.Collections.Generic;
 
-namespace Pbp.Forms
+namespace NurseryAlertServer.Projection
 {
     public partial class ProjectionWindow : Form
     {

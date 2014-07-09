@@ -32,7 +32,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Pbp.Manager
+namespace NurseryAlertServer.Projection
 {
     class ProjectionManager
     {
@@ -49,7 +49,7 @@ namespace Pbp.Manager
             get { return _instance ?? (_instance = new ProjectionManager()); }
         }
 
-        protected List<Pbp.Forms.ProjectionWindow> projectionWindows;
+        protected List<ProjectionWindow> projectionWindows;
 
         protected ProjectionState currentState = ProjectionState.Disabled;
 
@@ -104,19 +104,19 @@ namespace Pbp.Manager
                 // First use
                 if (projectionWindows == null)
                 {
-                    projectionWindows = new List<Forms.ProjectionWindow>();
+                    projectionWindows = new List<ProjectionWindow>();
                     if (ScreenManager.Instance.AvailableProjectionScreens.Count > 0)
                     {
                         foreach (var s in ScreenManager.Instance.AvailableProjectionScreens)
                         {
-                            Forms.ProjectionWindow pw = new Forms.ProjectionWindow(s);
+                            ProjectionWindow pw = new ProjectionWindow(s);
                             projectionWindows.Add(pw);
                         }
                         return true;
                     }
                     else
                     {
-                        Forms.ProjectionWindow pw = new Forms.ProjectionWindow(ScreenManager.Instance.MainScreen);
+                        ProjectionWindow pw = new ProjectionWindow(ScreenManager.Instance.MainScreen);
                         projectionWindows.Add(pw);
                         return false;
                     }
@@ -137,7 +137,7 @@ namespace Pbp.Manager
                             // Create new window if a screen has been added
                             else if (i < ScreenManager.Instance.AvailableProjectionScreens.Count)
                             {
-                                Forms.ProjectionWindow pw = new Forms.ProjectionWindow(ScreenManager.Instance.AvailableProjectionScreens[i]);
+                                ProjectionWindow pw = new ProjectionWindow(ScreenManager.Instance.AvailableProjectionScreens[i]);
                                 projectionWindows.Add(pw);
                             }
                             // Destroy window if a screen has been removed

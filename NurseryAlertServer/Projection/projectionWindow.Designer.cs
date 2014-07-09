@@ -1,4 +1,4 @@
-﻿namespace Pbp.Forms
+﻿namespace NurseryAlertServer.Projection
 {
     partial class ProjectionWindow
     {

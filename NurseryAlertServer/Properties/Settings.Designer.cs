@@ -22,5 +22,41 @@ namespace NurseryAlertServer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ProjectionBackColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ProjectionBackColor"]));
+            }
+            set {
+                this["ProjectionBackColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("White")]
+        public global::System.Drawing.Color ProjectionMasterFontColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ProjectionMasterFontColor"]));
+            }
+            set {
+                this["ProjectionMasterFontColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("500")]
+        public int ProjectionFadeTime {
+            get {
+                return ((int)(this["ProjectionFadeTime"]));
+            }
+            set {
+                this["ProjectionFadeTime"] = value;
+            }
+        }
     }
 }

@@ -27,7 +27,7 @@
 
 using System;
 
-namespace Pbp
+namespace NurseryAlertServer.Projection
 {
     public abstract class BaseLayer
     {
