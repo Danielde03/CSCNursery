@@ -32,7 +32,7 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace Pbp.Manager
+namespace NurseryAlertServer.Projection
 {
     class ScreenManager
     {
