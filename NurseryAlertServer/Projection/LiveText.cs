@@ -39,6 +39,10 @@ namespace NurseryAlertServer.Projection
 
         public StringAlignment VerticalAlign { get; set; }
 
+        public int Xpadding { get; set; }
+
+        public int Ypadding { get; set; }
+
         public float FontSize { get; set; }
 
         public LiveText()
@@ -50,6 +54,10 @@ namespace NurseryAlertServer.Projection
         {
             Text = initText;
             FontSize = Settings.Default.ProjectionMasterFont.Size;
+            HorizontalAlign = StringAlignment.Far;
+            VerticalAlign = StringAlignment.Far;
+            Xpadding = 10;
+            Ypadding = -10;
         }
 
         public override void writeOut(System.Drawing.Graphics gr, object[] args, ProjectionMode pr)
@@ -61,34 +69,34 @@ namespace NurseryAlertServer.Projection
 
             int w = (int)gr.VisibleClipBounds.Width;
             int h = (int)gr.VisibleClipBounds.Height;
-            int padding = 20;
 
             string[] lines = Text.Split(Environment.NewLine.ToCharArray());
 
+            //TODO: Text size calculation seems to be off by ~24 pixels
             SizeF coveredArea = gr.MeasureString(Text, font);
 
             int x, y;
             if (strFormat.Alignment == StringAlignment.Far)
-                x = w - padding;
+                x = w - Xpadding;
             else if (strFormat.Alignment == StringAlignment.Center)
                 x = w / 2;
             else
-                x = padding;
+                x = Xpadding;
 
             if (VerticalAlign == StringAlignment.Far)
-                y = h - padding - (int)coveredArea.Height;
+                y = h - Ypadding - (int)coveredArea.Height;
             else if (VerticalAlign == StringAlignment.Center)
                 y = (h / 2) - (int)(coveredArea.Height / 2);
             else
-                y = padding;
+                y = Ypadding;
 
             foreach (string l in lines)
             {
                 SizeF lm = gr.MeasureString(l, font);
 
-                if (lm.Width > (float)(w - padding))
+                if (lm.Width > (float)(w - Xpadding))
                 {
-                    int nc = l.Length / ((int)Math.Ceiling(lm.Width / (float)(w - padding)));
+                    int nc = l.Length / ((int)Math.Ceiling(lm.Width / (float)(w - Xpadding)));
                     string s = string.Join(Environment.NewLine, StringUtils.Wrap(l, nc)).Trim();
                     drawString(gr, s, x, y, font, fontBrush, strFormat);
                     y += (int)gr.MeasureString(s, font).Height + Settings.Default.ProjectionMasterLineSpacing;
