@@ -27,9 +27,9 @@
 
 using System;
 using System.Drawing;
-using Pbp.Properties;
+using NurseryAlertServer.Properties;
 
-namespace Pbp
+namespace NurseryAlertServer.Projection
 {
     internal class LiveText : TextLayer
     {

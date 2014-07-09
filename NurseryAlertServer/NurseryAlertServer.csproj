@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Projection\BaseLayer.cs" />
+    <Compile Include="Projection\LiveText.cs" />
     <Compile Include="Projection\projectionControl.xaml.cs">
       <DependentUpon>projectionControl.xaml</DependentUpon>
     </Compile>
@@ -72,7 +73,9 @@
       <DependentUpon>projectionWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Projection\ScreenManager.cs" />
+    <Compile Include="Projection\TextLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\StringUtils.cs" />
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +109,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -82,5 +82,29 @@ namespace NurseryAlertServer.Properties {
                 this["ProjectionOutlineColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Calibri, 50.25pt, style=Bold")]
+        public global::System.Drawing.Font ProjectionMasterFont {
+            get {
+                return ((global::System.Drawing.Font)(this["ProjectionMasterFont"]));
+            }
+            set {
+                this["ProjectionMasterFont"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ProjectionMasterLineSpacing {
+            get {
+                return ((int)(this["ProjectionMasterLineSpacing"]));
+            }
+            set {
+                this["ProjectionMasterLineSpacing"] = value;
+            }
+        }
     }
 }
