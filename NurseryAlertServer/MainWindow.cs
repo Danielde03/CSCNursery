@@ -47,6 +47,7 @@ namespace NurseryAlertServer
         private void MainWindow_Load(object sender, EventArgs e)
         {
             Console.WriteLine("MainWindow Load");
+            Projection.ProjectionManager.Instance.ShowProjectionWindow();
         }
     }
 }
