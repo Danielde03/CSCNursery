@@ -28,7 +28,6 @@ namespace NurseryAlertServer
         /// <summary>
         /// The main window class provides the central gui.
         /// </summary>
-        /// 
         public static MainWindow Instance
         {
             get
@@ -38,6 +37,16 @@ namespace NurseryAlertServer
                     return _instance ?? (_instance = new MainWindow());
                 }
             }
+        }
+
+        /// <summary>
+        /// Initialize the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+            Console.WriteLine("MainWindow Load");
         }
     }
 }
