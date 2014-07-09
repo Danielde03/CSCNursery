@@ -48,6 +48,16 @@ namespace NurseryAlertServer
         {
             Console.WriteLine("MainWindow Load");
             Projection.ProjectionManager.Instance.ShowProjectionWindow();
+            DisplayText();
+        }
+
+        /// <summary>
+        /// Display some text on the screen
+        /// </summary>
+        private void DisplayText()
+        {
+            var lt = new Projection.LiveText("123");
+            Projection.ProjectionManager.Instance.DisplayLayer(2, lt);
         }
     }
 }
