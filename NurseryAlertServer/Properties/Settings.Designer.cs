@@ -58,5 +58,29 @@ namespace NurseryAlertServer.Properties {
                 this["ProjectionFadeTime"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ProjectionOutlineSize {
+            get {
+                return ((int)(this["ProjectionOutlineSize"]));
+            }
+            set {
+                this["ProjectionOutlineSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
+        public global::System.Drawing.Color ProjectionOutlineColor {
+            get {
+                return ((global::System.Drawing.Color)(this["ProjectionOutlineColor"]));
+            }
+            set {
+                this["ProjectionOutlineColor"] = value;
+            }
+        }
     }
 }
