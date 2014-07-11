@@ -24,12 +24,23 @@ namespace NurseryAlertServer.Tally
 
         private static SerialPort _serialPort;
 
+        private int _tallyState;
+
+        // Tally change detection event
+        public delegate void TallyChange(TallyChangedEventArgs e);
+        public event TallyChange TallyChanged;
+        public class TallyChangedEventArgs : EventArgs
+        {
+            public int state { get; protected internal set; }
+        }
+
         /// <summary>
         /// The constructor
         /// </summary>
         private TallyManager()
         {
             _serialPort = new SerialPort();
+            _tallyState = 0;
         }
 
         /// <summary>
@@ -48,11 +59,27 @@ namespace NurseryAlertServer.Tally
             _serialPort.Open();
         }
 
-        private static void PinChangedEventHandler(object sender, SerialPinChangedEventArgs e)
+        /// <summary>
+        /// Pin Chnaged Event Handler.
+        /// </summary>
+        /// <param name="sender">SerialPort object</param>
+        /// <param name="e">SerialPinChangedEventArgs object</param>
+        private void PinChangedEventHandler(object sender, SerialPinChangedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
             Console.WriteLine("Pin Change {0} - BRK {1} DCD {2} CTS {3} DSR {4}",
                 e.EventType, sp.BreakState, sp.CDHolding, sp.CtsHolding, sp.DsrHolding);
+
+            //Assuming CTS for now
+            int newState = sp.CtsHolding ? 1 : 0;
+
+            if (newState != _tallyState && TallyChanged != null)
+            {
+                TallyChangedEventArgs args = new TallyChangedEventArgs();
+                args.state = newState;
+                TallyChanged(args);
+            }
+            _tallyState = newState;
         }
     }
 }

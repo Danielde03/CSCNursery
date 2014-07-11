@@ -47,8 +47,11 @@ namespace NurseryAlertServer
         private void MainWindow_Load(object sender, EventArgs e)
         {
             Console.WriteLine("MainWindow Load");
+
             Projection.ProjectionManager.Instance.ShowProjectionWindow();
             DisplayText();
+
+            Tally.TallyManager.Instance.TallyChanged += new Tally.TallyManager.TallyChange(TallyChangedHandler);
             Tally.TallyManager.Instance.OpenTallyPort();
         }
 
@@ -59,6 +62,15 @@ namespace NurseryAlertServer
         {
             var lt = new Projection.LiveText("123");
             Projection.ProjectionManager.Instance.DisplayLayer(2, lt);
+        }
+
+        /// <summary>
+        /// Callback indicating a tally change has occurred
+        /// </summary>
+        /// <param name="e">TallyChangedEventArgs containing the tally state</param>
+        private void TallyChangedHandler(Tally.TallyManager.TallyChangedEventArgs e)
+        {
+            Console.WriteLine("Tally {0}",e.state);
         }
     }
 }
