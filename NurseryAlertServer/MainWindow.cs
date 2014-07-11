@@ -49,6 +49,7 @@ namespace NurseryAlertServer
             Console.WriteLine("MainWindow Load");
             Projection.ProjectionManager.Instance.ShowProjectionWindow();
             DisplayText();
+            Tally.TallyManager.Instance.OpenTallyPort();
         }
 
         /// <summary>

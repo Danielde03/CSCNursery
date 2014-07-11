@@ -106,5 +106,17 @@ namespace NurseryAlertServer.Properties {
                 this["ProjectionMasterLineSpacing"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("COM1")]
+        public string TallyComPort {
+            get {
+                return ((string)(this["TallyComPort"]));
+            }
+            set {
+                this["TallyComPort"] = value;
+            }
+        }
     }
 }
