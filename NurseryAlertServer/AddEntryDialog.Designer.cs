@@ -31,6 +31,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonSend = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.checkBoxEmergency = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textBox1
@@ -61,12 +62,23 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
+            // checkBoxEmergency
+            // 
+            this.checkBoxEmergency.AutoSize = true;
+            this.checkBoxEmergency.Location = new System.Drawing.Point(13, 40);
+            this.checkBoxEmergency.Name = "checkBoxEmergency";
+            this.checkBoxEmergency.Size = new System.Drawing.Size(79, 17);
+            this.checkBoxEmergency.TabIndex = 3;
+            this.checkBoxEmergency.Text = "Emergency";
+            this.checkBoxEmergency.UseVisualStyleBackColor = true;
+            // 
             // AddEntryDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(213, 72);
             this.ControlBox = false;
+            this.Controls.Add(this.checkBoxEmergency);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSend);
             this.Controls.Add(this.textBox1);
@@ -85,5 +97,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button buttonSend;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.CheckBox checkBoxEmergency;
     }
 }

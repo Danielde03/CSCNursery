@@ -20,6 +20,14 @@ namespace NurseryAlertServer
             }
         }
 
+        public bool EntryEmergency
+        {
+            get
+            {
+                return checkBoxEmergency.Checked;
+            }
+        }
+
         public AddEntryDialog()
         {
             InitializeComponent();

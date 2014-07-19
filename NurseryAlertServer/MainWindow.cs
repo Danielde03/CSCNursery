@@ -73,6 +73,11 @@ namespace NurseryAlertServer
             Console.WriteLine("Tally {0}",e.state);
         }
 
+        /// <summary>
+        /// Handler for the Add Entry button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonAddEntry_Click(object sender, EventArgs e)
         {
             AddEntryDialog dlg = new AddEntryDialog();
@@ -80,8 +85,19 @@ namespace NurseryAlertServer
 
             if (dlg.DialogResult == DialogResult.OK)
             {
-                Console.WriteLine(dlg.EntryText);
+                AddEntry(dlg.EntryText, dlg.EntryEmergency);
             }
         }
+
+        /// <summary>
+        /// Add an Entry to the entries window
+        /// </summary>
+        /// <param name="entryText">Entry ID text string to add</param>
+        /// <param name="emergency">Indicates if emergency</param>
+        private void AddEntry(string entryText, bool emergency)
+        {
+            listViewEntries.Items.Add(entryText);
+        }
+
     }
 }
