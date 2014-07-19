@@ -72,5 +72,16 @@ namespace NurseryAlertServer
         {
             Console.WriteLine("Tally {0}",e.state);
         }
+
+        private void toolStripButtonAddEntry_Click(object sender, EventArgs e)
+        {
+            AddEntryDialog dlg = new AddEntryDialog();
+            dlg.ShowDialog();
+
+            if (dlg.DialogResult == DialogResult.OK)
+            {
+                Console.WriteLine(dlg.EntryText);
+            }
+        }
     }
 }

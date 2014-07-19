@@ -120,6 +120,7 @@
             this.toolStripButtonAddEntry.Name = "toolStripButtonAddEntry";
             this.toolStripButtonAddEntry.Size = new System.Drawing.Size(44, 44);
             this.toolStripButtonAddEntry.Text = "Add an entry";
+            this.toolStripButtonAddEntry.Click += new System.EventHandler(this.toolStripButtonAddEntry_Click);
             // 
             // MainWindow
             // 
