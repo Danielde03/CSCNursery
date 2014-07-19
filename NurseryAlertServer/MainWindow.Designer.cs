@@ -53,7 +53,7 @@
             this.listViewEntries.GridLines = true;
             this.listViewEntries.Location = new System.Drawing.Point(12, 81);
             this.listViewEntries.Name = "listViewEntries";
-            this.listViewEntries.Size = new System.Drawing.Size(494, 201);
+            this.listViewEntries.Size = new System.Drawing.Size(439, 201);
             this.listViewEntries.TabIndex = 0;
             this.listViewEntries.UseCompatibleStateImageBehavior = false;
             this.listViewEntries.View = System.Windows.Forms.View.Details;
@@ -65,17 +65,20 @@
             // colEmergency
             // 
             this.colEmergency.Text = "E";
+            this.colEmergency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colEmergency.Width = 22;
             // 
             // colDateRecv
             // 
             this.colDateRecv.Text = "Received";
-            this.colDateRecv.Width = 65;
+            this.colDateRecv.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colDateRecv.Width = 100;
             // 
             // colDateDisplay
             // 
             this.colDateDisplay.Text = "Last Displayed";
-            this.colDateDisplay.Width = 106;
+            this.colDateDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colDateDisplay.Width = 100;
             // 
             // menuStrip1
             // 
@@ -83,7 +86,7 @@
             this.preferencesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(521, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(461, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -108,7 +111,7 @@
             this.toolStripButtonAddEntry});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(521, 47);
+            this.toolStrip1.Size = new System.Drawing.Size(461, 47);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -126,7 +129,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 294);
+            this.ClientSize = new System.Drawing.Size(461, 294);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.listViewEntries);
             this.Controls.Add(this.menuStrip1);

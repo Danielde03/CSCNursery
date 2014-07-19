@@ -96,7 +96,11 @@ namespace NurseryAlertServer
         /// <param name="emergency">Indicates if emergency</param>
         private void AddEntry(string entryText, bool emergency)
         {
-            listViewEntries.Items.Add(entryText);
+            ListViewItem item = new ListViewItem(entryText);
+            item.SubItems.Add(emergency ? "!" : "");
+            DateTime current = DateTime.Now;
+            item.SubItems.Add(current.ToString("h:mm:ss tt"));
+            listViewEntries.Items.Add(item);
         }
 
     }
