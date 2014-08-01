@@ -54,6 +54,7 @@
             this.listViewEntries.Location = new System.Drawing.Point(12, 81);
             this.listViewEntries.Name = "listViewEntries";
             this.listViewEntries.Size = new System.Drawing.Size(439, 201);
+            this.listViewEntries.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listViewEntries.TabIndex = 0;
             this.listViewEntries.UseCompatibleStateImageBehavior = false;
             this.listViewEntries.View = System.Windows.Forms.View.Details;

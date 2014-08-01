@@ -17,12 +17,15 @@ namespace NurseryAlertServer
         private static MainWindow _instance;
         private static readonly object singletonPadlock = new object();
 
+        private string displayText;
+
         /// <summary>
         /// Private constructor
         /// </summary>
         private MainWindow()
         {
             InitializeComponent();
+            displayText = "";
         }
 
         /// <summary>
@@ -49,7 +52,6 @@ namespace NurseryAlertServer
             Console.WriteLine("MainWindow Load");
 
             Projection.ProjectionManager.Instance.ShowProjectionWindow();
-            DisplayText();
 
             Tally.TallyManager.Instance.TallyChanged += new Tally.TallyManager.TallyChange(TallyChangedHandler);
             Tally.TallyManager.Instance.OpenTallyPort();
@@ -58,9 +60,19 @@ namespace NurseryAlertServer
         /// <summary>
         /// Display some text on the screen
         /// </summary>
-        private void DisplayText()
+        /// <param name="entryText">Entry ID text string to display</param>
+        private void DisplayText(string entryText)
         {
-            var lt = new Projection.LiveText("123");
+            if (String.IsNullOrEmpty(displayText))
+            {
+                displayText = entryText;
+            }
+            else
+            {
+                displayText += " , ";
+                displayText += entryText;
+            }
+            var lt = new Projection.LiveText(displayText);
             Projection.ProjectionManager.Instance.DisplayLayer(2, lt);
         }
 
@@ -101,6 +113,7 @@ namespace NurseryAlertServer
             DateTime current = DateTime.Now;
             item.SubItems.Add(current.ToString("h:mm:ss tt"));
             listViewEntries.Items.Add(item);
+            DisplayText(entryText);
         }
 
     }
