@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.IO;
 using System.Windows.Forms;
 
 namespace NurseryAlertServer
@@ -54,7 +55,14 @@ namespace NurseryAlertServer
             Projection.ProjectionManager.Instance.ShowProjectionWindow();
 
             Tally.TallyManager.Instance.TallyChanged += new Tally.TallyManager.TallyChange(TallyChangedHandler);
-            Tally.TallyManager.Instance.OpenTallyPort();
+            try
+            {
+                Tally.TallyManager.Instance.OpenTallyPort();
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Failed opening COM port\n" + ex.Message);
+            }
         }
 
         /// <summary>
