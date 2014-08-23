@@ -20,6 +20,28 @@ namespace NurseryAlertServer
 
         private string displayText;
 
+        private class EntryItem : IEquatable<EntryItem>
+        {
+            public String value { get; set; }
+            public int index { get; set; }
+
+            /// <summary>
+            /// Constructor
+            /// </summary>
+            public EntryItem(String v, int i)
+            {
+                value = v;
+                index = i;
+            }
+
+            public bool Equals(EntryItem other)
+            {
+                return (other.value == this.value);
+            }
+        }
+
+        private Queue<EntryItem> displayQueue;
+
         /// <summary>
         /// Private constructor
         /// </summary>
@@ -27,6 +49,7 @@ namespace NurseryAlertServer
         {
             InitializeComponent();
             displayText = "";
+            displayQueue = new Queue<EntryItem>();
         }
 
         /// <summary>
@@ -77,7 +100,7 @@ namespace NurseryAlertServer
             }
             else
             {
-                displayText += " , ";
+                displayText += ", ";
                 displayText += entryText;
             }
             var lt = new Projection.LiveText(displayText);
@@ -116,14 +139,39 @@ namespace NurseryAlertServer
         /// <param name="emergency">Indicates if emergency</param>
         private void AddEntry(string entryText, bool emergency)
         {
+            int index = listViewEntries.Items.Count;
+            EntryItem newItem = new EntryItem(entryText, index);
+            //Don't add the entry if it is already displayed
+            if (displayQueue.Contains(newItem))
+                return;
+
             ListViewItem item = new ListViewItem(entryText);
             item.SubItems.Add(emergency ? "Yes" : "");
             item.SubItems.Add("Yes");
             DateTime current = DateTime.Now;
             item.SubItems.Add(current.ToString("h:mm:ss tt"));
             item.SubItems.Add("--Never--");
+
+            displayQueue.Enqueue(new EntryItem(entryText, index));
             listViewEntries.Items.Insert(0,item);
             DisplayText(entryText);
+        }
+
+        private void toolStripButtonMarkDisplayed_Click(object sender, EventArgs e)
+        {
+            foreach(var qitem in displayQueue.ToList())
+            {
+                //Use the reverse index to find the entry
+                int rindex = listViewEntries.Items.Count - qitem.index - 1;
+                ListViewItem litem = listViewEntries.Items[rindex];
+                Console.WriteLine(litem.Text);
+                litem.SubItems[2].Text = "No";
+                DateTime current = DateTime.Now;
+                litem.SubItems[4].Text = current.ToString("h:mm:ss tt");
+                displayQueue.Dequeue();
+            }
+            displayText = "";
+            DisplayText("");
         }
 
     }

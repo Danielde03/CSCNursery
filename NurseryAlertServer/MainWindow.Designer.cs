@@ -40,6 +40,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddEntry = new System.Windows.Forms.ToolStripButton();
             this.colOutstanding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolStripButtonMarkDisplayed = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -111,7 +112,8 @@
             // 
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonAddEntry});
+            this.toolStripButtonAddEntry,
+            this.toolStripButtonMarkDisplayed});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(461, 47);
@@ -132,6 +134,16 @@
             // 
             this.colOutstanding.Text = "Outstanding";
             this.colOutstanding.Width = 80;
+            // 
+            // toolStripButtonMarkDisplayed
+            // 
+            this.toolStripButtonMarkDisplayed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonMarkDisplayed.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonMarkDisplayed.Image")));
+            this.toolStripButtonMarkDisplayed.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonMarkDisplayed.Name = "toolStripButtonMarkDisplayed";
+            this.toolStripButtonMarkDisplayed.Size = new System.Drawing.Size(44, 44);
+            this.toolStripButtonMarkDisplayed.Text = "Mark as displayed";
+            this.toolStripButtonMarkDisplayed.Click += new System.EventHandler(this.toolStripButtonMarkDisplayed_Click);
             // 
             // MainWindow
             // 
@@ -167,6 +179,7 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonAddEntry;
         private System.Windows.Forms.ColumnHeader colOutstanding;
+        private System.Windows.Forms.ToolStripButton toolStripButtonMarkDisplayed;
     }
 }
 
