@@ -117,10 +117,12 @@ namespace NurseryAlertServer
         private void AddEntry(string entryText, bool emergency)
         {
             ListViewItem item = new ListViewItem(entryText);
-            item.SubItems.Add(emergency ? "!" : "");
+            item.SubItems.Add(emergency ? "Yes" : "");
+            item.SubItems.Add("Yes");
             DateTime current = DateTime.Now;
             item.SubItems.Add(current.ToString("h:mm:ss tt"));
-            listViewEntries.Items.Add(item);
+            item.SubItems.Add("--Never--");
+            listViewEntries.Items.Insert(0,item);
             DisplayText(entryText);
         }
 

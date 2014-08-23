@@ -39,6 +39,7 @@
             this.preserencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddEntry = new System.Windows.Forms.ToolStripButton();
+            this.colOutstanding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -48,30 +49,31 @@
             this.listViewEntries.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colEntryId,
             this.colEmergency,
+            this.colOutstanding,
             this.colDateRecv,
             this.colDateDisplay});
             this.listViewEntries.GridLines = true;
             this.listViewEntries.Location = new System.Drawing.Point(12, 81);
             this.listViewEntries.Name = "listViewEntries";
             this.listViewEntries.Size = new System.Drawing.Size(439, 201);
-            this.listViewEntries.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listViewEntries.TabIndex = 0;
             this.listViewEntries.UseCompatibleStateImageBehavior = false;
             this.listViewEntries.View = System.Windows.Forms.View.Details;
             // 
             // colEntryId
             // 
-            this.colEntryId.Text = "Entry ID";
+            this.colEntryId.Text = "Pager Number";
+            this.colEntryId.Width = 80;
             // 
             // colEmergency
             // 
-            this.colEmergency.Text = "E";
+            this.colEmergency.Text = "Emergency";
             this.colEmergency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.colEmergency.Width = 22;
+            this.colEmergency.Width = 70;
             // 
             // colDateRecv
             // 
-            this.colDateRecv.Text = "Received";
+            this.colDateRecv.Text = "Request Time";
             this.colDateRecv.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colDateRecv.Width = 100;
             // 
@@ -126,6 +128,11 @@
             this.toolStripButtonAddEntry.Text = "Add an entry";
             this.toolStripButtonAddEntry.Click += new System.EventHandler(this.toolStripButtonAddEntry_Click);
             // 
+            // colOutstanding
+            // 
+            this.colOutstanding.Text = "Outstanding";
+            this.colOutstanding.Width = 80;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,6 +166,7 @@
         private System.Windows.Forms.ToolStripMenuItem preserencesToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButtonAddEntry;
+        private System.Windows.Forms.ColumnHeader colOutstanding;
     }
 }
 
