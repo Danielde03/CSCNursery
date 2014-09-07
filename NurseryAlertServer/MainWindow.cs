@@ -19,6 +19,7 @@ namespace NurseryAlertServer
         private static readonly object singletonPadlock = new object();
 
         private string displayText;
+        private int tallyState;
 
         private class EntryItem : IEquatable<EntryItem>
         {
@@ -49,6 +50,7 @@ namespace NurseryAlertServer
         {
             InitializeComponent();
             displayText = "";
+            tallyState = 0;
             displayQueue = new Queue<EntryItem>();
         }
 
@@ -109,11 +111,17 @@ namespace NurseryAlertServer
 
         /// <summary>
         /// Callback indicating a tally change has occurred
+        ///  This runs in the serial port thread
         /// </summary>
         /// <param name="e">TallyChangedEventArgs containing the tally state</param>
         private void TallyChangedHandler(Tally.TallyManager.TallyChangedEventArgs e)
         {
-            Console.WriteLine("Tally {0}",e.state);
+            Console.WriteLine("Tally {0}", e.state);
+            //Invoke a delgate to run under the UI thread
+            this.Invoke((MethodInvoker)delegate
+            {
+                tallyStateChangeUIDelegate(e.state);
+            });
         }
 
         /// <summary>
@@ -159,7 +167,27 @@ namespace NurseryAlertServer
 
         private void toolStripButtonMarkDisplayed_Click(object sender, EventArgs e)
         {
-            foreach(var qitem in displayQueue.ToList())
+            clearDisplay();
+        }
+
+        private void tallyStateChangeUIDelegate(int newState)
+        {
+            int lastState = tallyState;
+            tallyState = newState;
+            if ((tallyState == 1) && (lastState == 0))
+            {
+                //Screen is being displayed
+            }
+            else if ((tallyState == 0) && (lastState == 1))
+            {
+                //Screen has stopped displaying
+                clearDisplay();
+            }
+        }
+
+        private void clearDisplay()
+        {
+            foreach (var qitem in displayQueue.ToList())
             {
                 //Use the reverse index to find the entry
                 int rindex = listViewEntries.Items.Count - qitem.index - 1;
