@@ -57,6 +57,7 @@ namespace NurseryAlertServer.Tally
             _serialPort.PortName = Settings.Default.TallyComPort;
             _serialPort.PinChanged += new SerialPinChangedEventHandler(PinChangedEventHandler);
             _serialPort.Open();
+            _serialPort.RtsEnable = true;
         }
 
         /// <summary>
@@ -67,10 +68,9 @@ namespace NurseryAlertServer.Tally
         private void PinChangedEventHandler(object sender, SerialPinChangedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            Console.WriteLine("Pin Change {0} - BRK {1} DCD {2} CTS {3} DSR {4}",
-                e.EventType, sp.BreakState, sp.CDHolding, sp.CtsHolding, sp.DsrHolding);
+            //Console.WriteLine("Pin Change {0} - BRK {1} DCD {2} CTS {3} DSR {4}",
+            //    e.EventType, sp.BreakState, sp.CDHolding, sp.CtsHolding, sp.DsrHolding);
 
-            //Assuming CTS for now
             int newState = sp.CtsHolding ? 1 : 0;
 
             if (newState != _tallyState && TallyChanged != null)
