@@ -42,6 +42,7 @@ namespace NurseryAlertServer
         }
 
         private Queue<EntryItem> displayQueue;
+        private Queue<EntryItem> preDisplayQueue;
 
         /// <summary>
         /// Private constructor
@@ -52,6 +53,7 @@ namespace NurseryAlertServer
             displayText = "";
             tallyState = 0;
             displayQueue = new Queue<EntryItem>();
+            preDisplayQueue = new Queue<EntryItem>();
         }
 
         /// <summary>
@@ -152,6 +154,8 @@ namespace NurseryAlertServer
             //Don't add the entry if it is already displayed
             if (displayQueue.Contains(newItem))
                 return;
+            if (preDisplayQueue.Contains(newItem))
+                return;
 
             ListViewItem item = new ListViewItem(entryText);
             item.SubItems.Add(emergency ? "Yes" : "");
@@ -160,9 +164,17 @@ namespace NurseryAlertServer
             item.SubItems.Add(current.ToString("h:mm:ss tt"));
             item.SubItems.Add("--Never--");
 
-            displayQueue.Enqueue(new EntryItem(entryText, index));
+            if (tallyState == 1)
+            {
+                //Currently displaying, queue the item for display later
+                preDisplayQueue.Enqueue(newItem);
+            }
+            else
+            {
+                displayQueue.Enqueue(newItem);
+                DisplayText(entryText);
+            }
             listViewEntries.Items.Insert(0,item);
-            DisplayText(entryText);
         }
 
         private void toolStripButtonMarkDisplayed_Click(object sender, EventArgs e)
@@ -177,11 +189,26 @@ namespace NurseryAlertServer
             if ((tallyState == 1) && (lastState == 0))
             {
                 //Screen is being displayed
+                markDisplayed();
             }
             else if ((tallyState == 0) && (lastState == 1))
             {
                 //Screen has stopped displaying
                 clearDisplay();
+            }
+        }
+
+        private void markDisplayed()
+        {
+            foreach (var qitem in displayQueue.ToList())
+            {
+                //Use the reverse index to find the entry
+                int rindex = listViewEntries.Items.Count - qitem.index - 1;
+                ListViewItem litem = listViewEntries.Items[rindex];
+                Console.WriteLine(litem.Text);
+                litem.SubItems[2].Text = "No";
+                DateTime current = DateTime.Now;
+                litem.SubItems[4].Text = current.ToString("h:mm:ss tt");
             }
         }
 
@@ -200,6 +227,14 @@ namespace NurseryAlertServer
             }
             displayText = "";
             DisplayText("");
+
+            //Move items from predisplay to display
+            foreach (var qitem in preDisplayQueue.ToList())
+            {
+                EntryItem item = preDisplayQueue.Dequeue();
+                displayQueue.Enqueue(item);
+                DisplayText(item.value);
+            }
         }
 
     }
