@@ -109,6 +109,7 @@ namespace NurseryAlertServer
             }
             var lt = new Projection.LiveText(displayText);
             Projection.ProjectionManager.Instance.DisplayLayer(2, lt);
+            toolStripStatusLabelCurrentDisplay.Text = displayText;
         }
 
         /// <summary>
