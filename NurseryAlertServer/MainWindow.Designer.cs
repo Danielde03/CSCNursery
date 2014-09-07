@@ -32,6 +32,7 @@
             this.listViewEntries = new System.Windows.Forms.ListView();
             this.colEntryId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colEmergency = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colOutstanding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colDateRecv = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colDateDisplay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -39,8 +40,9 @@
             this.preserencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddEntry = new System.Windows.Forms.ToolStripButton();
-            this.colOutstanding = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripButtonMarkDisplayed = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButtonRemoveAll = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -71,6 +73,11 @@
             this.colEmergency.Text = "Emergency";
             this.colEmergency.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.colEmergency.Width = 70;
+            // 
+            // colOutstanding
+            // 
+            this.colOutstanding.Text = "Outstanding";
+            this.colOutstanding.Width = 80;
             // 
             // colDateRecv
             // 
@@ -113,7 +120,9 @@
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(40, 40);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonAddEntry,
-            this.toolStripButtonMarkDisplayed});
+            this.toolStripButtonMarkDisplayed,
+            this.toolStripSeparator1,
+            this.toolStripButtonRemoveAll});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(461, 47);
@@ -130,11 +139,6 @@
             this.toolStripButtonAddEntry.Text = "Add an entry";
             this.toolStripButtonAddEntry.Click += new System.EventHandler(this.toolStripButtonAddEntry_Click);
             // 
-            // colOutstanding
-            // 
-            this.colOutstanding.Text = "Outstanding";
-            this.colOutstanding.Width = 80;
-            // 
             // toolStripButtonMarkDisplayed
             // 
             this.toolStripButtonMarkDisplayed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -144,6 +148,21 @@
             this.toolStripButtonMarkDisplayed.Size = new System.Drawing.Size(44, 44);
             this.toolStripButtonMarkDisplayed.Text = "Mark as displayed";
             this.toolStripButtonMarkDisplayed.Click += new System.EventHandler(this.toolStripButtonMarkDisplayed_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 47);
+            // 
+            // toolStripButtonRemoveAll
+            // 
+            this.toolStripButtonRemoveAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonRemoveAll.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonRemoveAll.Image")));
+            this.toolStripButtonRemoveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRemoveAll.Name = "toolStripButtonRemoveAll";
+            this.toolStripButtonRemoveAll.Size = new System.Drawing.Size(44, 44);
+            this.toolStripButtonRemoveAll.Text = "Remove all items";
+            this.toolStripButtonRemoveAll.Click += new System.EventHandler(this.toolStripButtonRemoveAll_Click);
             // 
             // MainWindow
             // 
@@ -180,6 +199,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonAddEntry;
         private System.Windows.Forms.ColumnHeader colOutstanding;
         private System.Windows.Forms.ToolStripButton toolStripButtonMarkDisplayed;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRemoveAll;
     }
 }
 

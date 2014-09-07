@@ -182,6 +182,20 @@ namespace NurseryAlertServer
             clearDisplay();
         }
 
+        private void toolStripButtonRemoveAll_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to remove all items?", "Confirm Remove All",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                listViewEntries.Items.Clear();
+                displayQueue.Clear();
+                preDisplayQueue.Clear();
+                displayText = "";
+                DisplayText("");
+            }
+        }
+
         private void tallyStateChangeUIDelegate(int newState)
         {
             int lastState = tallyState;
@@ -190,11 +204,13 @@ namespace NurseryAlertServer
             {
                 //Screen is being displayed
                 markDisplayed();
+                toolStripButtonRemoveAll.Enabled = false;
             }
             else if ((tallyState == 0) && (lastState == 1))
             {
                 //Screen has stopped displaying
                 clearDisplay();
+                toolStripButtonRemoveAll.Enabled = true;
             }
         }
 
