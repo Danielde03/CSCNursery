@@ -90,6 +90,8 @@ namespace NurseryAlertServer
             {
                 MessageBox.Show("Failed opening COM port\n" + ex.Message);
             }
+
+            Web.HttpManager.Instance.StartServer();
         }
 
         /// <summary>

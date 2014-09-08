@@ -118,5 +118,17 @@ namespace NurseryAlertServer.Properties {
                 this["TallyComPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("8080")]
+        public int WebPort {
+            get {
+                return ((int)(this["WebPort"]));
+            }
+            set {
+                this["WebPort"] = value;
+            }
+        }
     }
 }

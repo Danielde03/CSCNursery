@@ -59,6 +59,7 @@
     <Compile Include="AddEntryDialog.Designer.cs">
       <DependentUpon>AddEntryDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Web\HttpServer.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
