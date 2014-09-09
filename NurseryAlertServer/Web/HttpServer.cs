@@ -71,7 +71,7 @@ namespace NurseryAlertServer.Web
             outputStream.Flush();
             // bs.Flush(); // flush any remaining output
             inputStream = null; outputStream = null; // bs = null;            
-            socket.Close();             
+            socket.Close();
         }
 
         public void parseRequest() {
@@ -219,6 +219,12 @@ namespace NurseryAlertServer.Web
         public override void handleGETRequest (HttpProcessor p)
 		{
             Console.WriteLine("request: {0}", p.http_url);
+            if (String.Equals(p.http_url, "/favicon.ico"))
+            {
+                Console.WriteLine("fav");
+                p.writeFailure();
+                return;
+            }
             p.writeSuccess();
             p.outputStream.WriteLine("<html><body><h1>test server</h1>");
             p.outputStream.WriteLine("Current Time: " + DateTime.Now.ToString());
