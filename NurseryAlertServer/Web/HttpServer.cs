@@ -178,13 +178,27 @@ namespace NurseryAlertServer.Web
         public void listen() {
             listener = new TcpListener(port);
             listener.Start();
-            while (is_active) {                
-                TcpClient s = listener.AcceptTcpClient();
+            while (is_active) {
+                TcpClient s = null;
+                try
+                {
+                    s = listener.AcceptTcpClient();
+                }
+                catch (SocketException)
+                {
+                    //Connection has been interrupted
+                    continue;
+                }
                 HttpProcessor processor = new HttpProcessor(s, this);
                 Thread thread = new Thread(new ThreadStart(processor.process));
                 thread.Start();
                 Thread.Sleep(1);
             }
+        }
+
+        public void Stop() {
+            is_active = false;
+            listener.Stop();
         }
 
         public abstract void handleGETRequest(HttpProcessor p);
@@ -254,6 +268,14 @@ namespace NurseryAlertServer.Web
         {
             Thread thread = new Thread(new ThreadStart(_httpServer.listen));
             thread.Start();
+        }
+
+        /// <summary>
+        /// Stop the Web Server
+        /// </summary>
+        public void StopServer()
+        {
+            _httpServer.Stop();
         }
     }
 }

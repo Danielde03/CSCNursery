@@ -95,6 +95,16 @@ namespace NurseryAlertServer
         }
 
         /// <summary>
+        /// Close the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Web.HttpManager.Instance.StopServer();
+        }
+
+        /// <summary>
         /// Display some text on the screen
         /// </summary>
         /// <param name="entryText">Entry ID text string to display</param>
@@ -255,6 +265,7 @@ namespace NurseryAlertServer
                 DisplayText(item.value);
             }
         }
+
 
     }
 }
