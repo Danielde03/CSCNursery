@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Collections.Specialized;
+using System.Web;
 using NurseryAlertServer.Properties;
 
 namespace NurseryAlertServer.Web
@@ -238,12 +240,20 @@ namespace NurseryAlertServer.Web
         public override void handlePOSTRequest(HttpProcessor p, StreamReader inputData)
         {
             Console.WriteLine("POST request: {0}", p.http_url);
-            string data = inputData.ReadToEnd();
+
+            String data = inputData.ReadToEnd();
+            NameValueCollection pparams = HttpUtility.ParseQueryString(data);
+            String pageText = pparams["pagernum"];
+            Console.WriteLine(pageText);
+            bool emerg = false;
+            if (!String.IsNullOrEmpty(pparams["emergency"]))
+            {
+                emerg = true;
+                Console.WriteLine("Emergency");
+            }
 
             p.writeSuccess();
-            p.outputStream.WriteLine("<html><body><h1>test server</h1>");
-            p.outputStream.WriteLine("<a href=/test>return</a><p>");
-            p.outputStream.WriteLine("postbody: <pre>{0}</pre>", data);
+            writePage(p);
         }
 
         private void writePage(HttpProcessor p)
@@ -253,7 +263,7 @@ namespace NurseryAlertServer.Web
             p.outputStream.WriteLine("<form method=post action=/form>");
             p.outputStream.WriteLine("Pager Number<input type=text name=pagernum>");
             p.outputStream.WriteLine("<input type=submit value=Page>");
-            p.outputStream.WriteLine("<br>Emergency<input type=checkbox value=emergency>");
+            p.outputStream.WriteLine("<br>Emergency<input type=checkbox name=emergency>");
             p.outputStream.WriteLine("</form>");
 
             p.outputStream.WriteLine("<h2>Current Page List</h2>");
