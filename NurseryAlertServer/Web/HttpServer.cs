@@ -212,10 +212,13 @@ namespace NurseryAlertServer.Web
         public abstract void handlePOSTRequest(HttpProcessor p, StreamReader inputData);
     }
 
-    public class NurseryAlertHttpServer : HttpServer {
+    public class NurseryAlertHttpServer : HttpServer
+    {
         public NurseryAlertHttpServer(int port)
-            : base(port) {
+            : base(port)
+        {
         }
+
         public override void handleGETRequest (HttpProcessor p)
 		{
             Console.WriteLine("request: {0}", p.http_url);
@@ -225,18 +228,15 @@ namespace NurseryAlertServer.Web
                 p.writeFailure();
                 return;
             }
-            p.writeSuccess();
-            p.outputStream.WriteLine("<html><body><h1>test server</h1>");
-            p.outputStream.WriteLine("Current Time: " + DateTime.Now.ToString());
-            p.outputStream.WriteLine("url : {0}", p.http_url);
-
-            p.outputStream.WriteLine("<form method=post action=/form>");
-            p.outputStream.WriteLine("<input type=text name=foo value=foovalue>");
-            p.outputStream.WriteLine("<input type=submit name=bar value=barvalue>");
-            p.outputStream.WriteLine("</form>");
+            else
+            {
+                p.writeSuccess();
+                writePage(p);
+            }
         }
 
-        public override void handlePOSTRequest(HttpProcessor p, StreamReader inputData) {
+        public override void handlePOSTRequest(HttpProcessor p, StreamReader inputData)
+        {
             Console.WriteLine("POST request: {0}", p.http_url);
             string data = inputData.ReadToEnd();
 
@@ -244,8 +244,24 @@ namespace NurseryAlertServer.Web
             p.outputStream.WriteLine("<html><body><h1>test server</h1>");
             p.outputStream.WriteLine("<a href=/test>return</a><p>");
             p.outputStream.WriteLine("postbody: <pre>{0}</pre>", data);
-            
+        }
 
+        private void writePage(HttpProcessor p)
+        {
+            p.outputStream.WriteLine("<html><body><h1>Pager System</h1>");
+
+            p.outputStream.WriteLine("<form method=post action=/form>");
+            p.outputStream.WriteLine("Pager Number<input type=text name=pagernum>");
+            p.outputStream.WriteLine("<input type=submit value=Page>");
+            p.outputStream.WriteLine("<br>Emergency<input type=checkbox value=emergency>");
+            p.outputStream.WriteLine("</form>");
+
+            p.outputStream.WriteLine("<h2>Current Page List</h2>");
+            p.outputStream.WriteLine("<table border=\"1\">");
+            p.outputStream.WriteLine("<tr><th>Pager Number</th><th>Emergency</th><th>Outstanding</th><th>Requested</th><th>Last Displayed</th></tr>");
+            p.outputStream.WriteLine("</table>");
+
+            p.outputStream.WriteLine("</body></html>");
         }
     }
 
