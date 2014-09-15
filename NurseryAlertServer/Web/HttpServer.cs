@@ -243,14 +243,11 @@ namespace NurseryAlertServer.Web
 
             String data = inputData.ReadToEnd();
             NameValueCollection pparams = HttpUtility.ParseQueryString(data);
-            String pageText = pparams["pagernum"];
-            Console.WriteLine(pageText);
-            bool emerg = false;
-            if (!String.IsNullOrEmpty(pparams["emergency"]))
-            {
-                emerg = true;
-                Console.WriteLine("Emergency");
-            }
+            String text = pparams["pagernum"];
+            bool emerg = true;
+            if (String.IsNullOrEmpty(pparams["emergency"]))
+                emerg = false;
+            PagerList.Instance.AddEntry(text, emerg);
 
             p.writeSuccess();
             writePage(p);
