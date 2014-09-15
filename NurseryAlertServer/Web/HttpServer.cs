@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using System.Collections.Specialized;
 using System.Web;
 using NurseryAlertServer.Properties;
 
@@ -266,9 +267,31 @@ namespace NurseryAlertServer.Web
             p.outputStream.WriteLine("<h2>Current Page List</h2>");
             p.outputStream.WriteLine("<table border=\"1\">");
             p.outputStream.WriteLine("<tr><th>Pager Number</th><th>Emergency</th><th>Outstanding</th><th>Requested</th><th>Last Displayed</th></tr>");
+            writePagerList(p);
             p.outputStream.WriteLine("</table>");
 
             p.outputStream.WriteLine("</body></html>");
+        }
+
+        private void writePagerList(HttpProcessor p)
+        {
+            List<PagerList.PagerEntry> plist = new List<PagerList.PagerEntry>();
+            String text = "";
+            PagerList.Instance.GetState(ref plist, ref text);
+            foreach (var entry in plist)
+            {
+                p.outputStream.WriteLine("<tr><td>");
+                p.outputStream.WriteLine(entry.pagerText);
+                p.outputStream.WriteLine("</td><td>");
+                p.outputStream.WriteLine(entry.emergency);
+                p.outputStream.WriteLine("</td><td>");
+                p.outputStream.WriteLine(entry.outstanding);
+                p.outputStream.WriteLine("</td><td>");
+                p.outputStream.WriteLine(entry.time);
+                p.outputStream.WriteLine("</td><td>");
+                p.outputStream.WriteLine(entry.displayTime);
+                p.outputStream.WriteLine("</td></tr>");
+            }
         }
     }
 
