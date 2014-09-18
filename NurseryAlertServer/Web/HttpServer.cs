@@ -256,9 +256,10 @@ namespace NurseryAlertServer.Web
 
         private void writePage(HttpProcessor p)
         {
-            p.outputStream.WriteLine("<html><body><h1>Pager System</h1>");
+            p.outputStream.WriteLine("<html><head><meta http-equiv=\"refresh\" content=\"60\"></head><body>");
+            p.outputStream.WriteLine("<h1>Pager System</h1>");
 
-            p.outputStream.WriteLine("<form method=post action=/form>");
+            p.outputStream.WriteLine("<form method=post action=/>");
             p.outputStream.WriteLine("Pager Number<input type=text name=pagernum>");
             p.outputStream.WriteLine("<input type=submit value=Page>");
             p.outputStream.WriteLine("<br>Emergency<input type=checkbox name=emergency>");
@@ -269,6 +270,7 @@ namespace NurseryAlertServer.Web
             p.outputStream.WriteLine("<tr><th>Pager Number</th><th>Emergency</th><th>Outstanding</th><th>Requested</th><th>Last Displayed</th></tr>");
             writePagerList(p);
             p.outputStream.WriteLine("</table>");
+            p.outputStream.WriteLine("<form method=get action=/><input type=submit value=Refresh></form>");
 
             p.outputStream.WriteLine("</body></html>");
         }
