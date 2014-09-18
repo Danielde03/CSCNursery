@@ -20,26 +20,6 @@ namespace NurseryAlertServer
 
         private int tallyState;
 
-        private class EntryItem : IEquatable<EntryItem>
-        {
-            public String value { get; set; }
-            public int index { get; set; }
-
-            /// <summary>
-            /// Constructor
-            /// </summary>
-            public EntryItem(String v, int i)
-            {
-                value = v;
-                index = i;
-            }
-
-            public bool Equals(EntryItem other)
-            {
-                return (other.value == this.value);
-            }
-        }
-
         /// <summary>
         /// Private constructor
         /// </summary>
