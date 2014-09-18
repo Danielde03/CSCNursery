@@ -30,7 +30,7 @@ namespace NurseryAlertServer
         }
 
         /// <summary>
-        /// The main window class provides the central gui.
+        /// Provide singleton access to the Main GUI Window
         /// </summary>
         public static MainWindow Instance
         {
@@ -79,6 +79,10 @@ namespace NurseryAlertServer
             Web.HttpManager.Instance.StopServer();
         }
 
+        /// <summary>
+        /// Display the Pager text on the screen output
+        /// </summary>
+        /// <param name="text">Text to display</param>
         private void DisplayPagerText(String text)
         {
             var lt = new Projection.LiveText(text);
@@ -100,6 +104,10 @@ namespace NurseryAlertServer
             });
         }
 
+        /// <summary>
+        /// Callback indicating the Pager list has changed
+        ///  This may be running in a non-UI thread
+        /// </summary>
         private void PagerListUpdateHandler()
         {
             this.Invoke((MethodInvoker)delegate
@@ -108,6 +116,9 @@ namespace NurseryAlertServer
             });
         }
 
+        /// <summary>
+        /// Update the UI with the Pager list.
+        /// </summary>
         private void UpdatePagerList()
         {
             List<PagerList.PagerEntry> plist = new List<PagerList.PagerEntry>();
@@ -142,11 +153,22 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// Handler for the Mark Displayed button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonMarkDisplayed_Click(object sender, EventArgs e)
         {
             PagerList.Instance.ClearDisplayedItems();
         }
 
+        /// <summary>
+        /// Handler for the Remove All button
+        ///  Clears the pager list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripButtonRemoveAll_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to remove all items?", "Confirm Remove All",
@@ -157,6 +179,10 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// UI-safe function to update the tally state
+        /// </summary>
+        /// <param name="newState">New tally state value</param>
         private void tallyStateChangeUIDelegate(int newState)
         {
             int lastState = tallyState;

@@ -8,8 +8,16 @@ using NurseryAlertServer.Properties;
 
 namespace NurseryAlertServer
 {
+    /// <summary>
+    /// The PagerList manages the list of pager entries.
+    /// It synchronizes requests from the GUI and the web interface.
+    /// It also manages the display queues and what is currently to be displayed.
+    /// </summary>
     class PagerList
     {
+        /// <summary>
+        /// PagerEntry represents a single entry in the list
+        /// </summary>
         public class PagerEntry : IEquatable<PagerEntry>
         {
             public String pagerText { get; set; }
@@ -65,6 +73,9 @@ namespace NurseryAlertServer
             Tally.TallyManager.Instance.TallyChanged += new Tally.TallyManager.TallyChange(TallyChangedHandler);
         }
 
+        /// <summary>
+        /// Public function to allow reloading settings as needed
+        /// </summary>
         public void LoadSettings()
         {
             _player = null;
@@ -108,6 +119,13 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// Add an entry to the Pager List
+        ///  Verifies that this entry is not already queued for display
+        ///  This function locks the data mutex while operating
+        /// </summary>
+        /// <param name="entryText">Pager entry value</param>
+        /// <param name="emergency">emergency indicator</param>
         public void AddEntry(String entryText, bool emergency)
         {
             if (_dataLock.WaitOne(2000))
@@ -161,6 +179,13 @@ namespace NurseryAlertServer
             PagerListUpdated();
         }
 
+
+        /// <summary>
+        /// Get the current state of the Pager List
+        ///  This function locks the data mutex while operating
+        /// </summary>
+        /// <param name="outList">Returns the current list</param>
+        /// <param name="outString">Returns the Pager text for display</param>
         public void GetState(ref List<PagerEntry> outList, ref String outString)
         {
             if (_dataLock.WaitOne(2000))
@@ -179,6 +204,10 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// Clear the Pager List
+        ///  This function locks the data mutex while operating
+        /// </summary>
         public void ClearList()
         {
             if (_dataLock.WaitOne(2000))
@@ -198,6 +227,10 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// UI trigger to mark all waiting items as displayed
+        ///  This function locks the data mutex while operating
+        /// </summary>
         public void MarkDisplayedItems()
         {
             if (_dataLock.WaitOne(2000))
@@ -217,10 +250,15 @@ namespace NurseryAlertServer
             }
             else
             {
-                Console.WriteLine("ClearDisplayedItems failed getting mutex!");
+                Console.WriteLine("MarkDisplayedItems failed getting mutex!");
             }
         }
 
+        /// <summary>
+        /// Screen is no longer displayed so clear entries from the display queue
+        ///  Any entries in the pre-display queue now move to the display queue
+        ///  This function locks the data mutex while operating
+        /// </summary>
         public void ClearDisplayedItems()
         {
             if (_dataLock.WaitOne(2000))
