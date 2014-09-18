@@ -29,5 +29,8 @@
     <Setting Name="WebPort" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">8080</Value>
     </Setting>
+    <Setting Name="NotificationSound" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Users\Jeremy_Ramer\personal\CSCNursery\NurseryAlertServer\baby_cry_short.wav</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

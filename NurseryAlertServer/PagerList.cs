@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Media;
+using NurseryAlertServer.Properties;
 
 namespace NurseryAlertServer
 {
@@ -37,6 +39,7 @@ namespace NurseryAlertServer
 
         private Mutex _dataLock;
         private List<PagerEntry> _PagerEntries;
+        private SoundPlayer _player;
         private Queue<PagerEntry> displayQueue;
         private Queue<PagerEntry> preDisplayQueue;
         private int tallyState;
@@ -57,7 +60,15 @@ namespace NurseryAlertServer
             preDisplayQueue = new Queue<PagerEntry>();
             displayText = "";
 
+            LoadSettings();
+
             Tally.TallyManager.Instance.TallyChanged += new Tally.TallyManager.TallyChange(TallyChangedHandler);
+        }
+
+        public void LoadSettings()
+        {
+            _player = null;
+            _player = new SoundPlayer(Settings.Default.NotificationSound);
         }
 
         /// <summary>
@@ -133,6 +144,15 @@ namespace NurseryAlertServer
                 }
                 _PagerEntries.Insert(0, newItem);
                 _dataLock.ReleaseMutex();
+
+                try
+                {
+                    _player.Play();
+                }
+                catch (System.IO.FileNotFoundException)
+                {
+                    Console.WriteLine("Failed playing notifcation sound!");
+                }
             }
             else
             {

@@ -130,5 +130,17 @@ namespace NurseryAlertServer.Properties {
                 this["WebPort"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Jeremy_Ramer\\personal\\CSCNursery\\NurseryAlertServer\\baby_cry_short.wav")]
+        public string NotificationSound {
+            get {
+                return ((string)(this["NotificationSound"]));
+            }
+            set {
+                this["NotificationSound"] = value;
+            }
+        }
     }
 }
