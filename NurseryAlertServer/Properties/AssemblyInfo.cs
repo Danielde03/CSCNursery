@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NurseryAlertServer")]
-[assembly: AssemblyDescription("Recieve alerts fromt the nursery to display on projector")]
+[assembly: AssemblyTitle("CSC Nursery")]
+[assembly: AssemblyDescription("This application recieves alerts from the nursery to display on the main projector system.\r\n\r\nLegal Information\r\n\r\nPortions of this code come from\r\nhttp://code.google.com/p/praisebasepresenter\r\n\r\nSome icons come from\r\nhttps://www.iconfinder.com/iconsets/musthave\r\n\r\nThis code is released under the GPL v2 License.\r\nhttps://github.com/jdramer/CSCNursery")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Centre Street Church")]
-[assembly: AssemblyProduct("NurseryAlertServer")]
+[assembly: AssemblyProduct("CSC Nursery")]
 [assembly: AssemblyCopyright("Copyright © Holy Spirit 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

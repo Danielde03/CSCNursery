@@ -249,5 +249,16 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// Handler for the About menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox dlg = new AboutBox();
+            dlg.ShowDialog();
+        }
+
     }
 }
