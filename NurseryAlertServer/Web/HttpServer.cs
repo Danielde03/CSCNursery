@@ -313,13 +313,23 @@ namespace NurseryAlertServer.Web
         }
 
         private NurseryAlertHttpServer _httpServer;
+        private int _port;
 
         /// <summary>
         /// The constructor
         /// </summary>
         private HttpManager()
         {
-            _httpServer = new NurseryAlertHttpServer(Settings.Default.WebPort);
+            Init();
+        }
+
+        /// <summary>
+        /// Initialize the Web Server
+        /// </summary>
+        private void Init()
+        {
+            _port = Settings.Default.WebPort;
+            _httpServer = new NurseryAlertHttpServer(_port);
         }
 
         /// <summary>
@@ -337,6 +347,20 @@ namespace NurseryAlertServer.Web
         public void StopServer()
         {
             _httpServer.Stop();
+        }
+
+        /// <summary>
+        /// Restart the Web Server if the requested port has changed
+        /// </summary>
+        public void PortChange()
+        {
+            if (_port != Settings.Default.WebPort)
+            {
+                StopServer();
+                _httpServer = null;
+                Init();
+                StartServer();
+            }
         }
     }
 }

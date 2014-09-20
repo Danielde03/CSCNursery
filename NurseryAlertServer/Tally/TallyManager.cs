@@ -48,20 +48,64 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         public void OpenTallyPort()
         {
-            Console.WriteLine("COM Ports:");
-            foreach (string s in SerialPort.GetPortNames())
+            String[] PortList = GetPorts();
+            String port;
+            if (PortList.Length <= 0)
             {
-                Console.WriteLine(" {0}", s);
+                port = Settings.Default.TallyComPort;
             }
-            Console.WriteLine("Using {0}", Settings.Default.TallyComPort);
-            _serialPort.PortName = Settings.Default.TallyComPort;
+            else
+            {
+                if (PortList.Contains(Settings.Default.TallyComPort))
+                {
+                    Console.WriteLine("Use selected");
+                    port = Settings.Default.TallyComPort;
+                }
+                else
+                {
+                    Console.WriteLine("Use first");
+                    port = PortList[0];
+                }
+            }
+            Console.WriteLine("using {0}", port);
+            _serialPort.PortName = port;
             _serialPort.PinChanged += new SerialPinChangedEventHandler(PinChangedEventHandler);
             _serialPort.Open();
             _serialPort.RtsEnable = true;
         }
 
         /// <summary>
-        /// Pin Chnaged Event Handler.
+        /// Reopen the tally port
+        /// </summary>
+        public void ReopenTallyPort()
+        {
+            if (!_serialPort.PortName.Equals(Settings.Default.TallyComPort))
+            {
+                Console.WriteLine("Reopen COM port");
+                _serialPort.Close();
+                _serialPort.PortName = Settings.Default.TallyComPort;
+                _serialPort.Open();
+                _serialPort.RtsEnable = true;
+            }
+        }
+
+        /// <summary>
+        /// Gets a list of available COM ports
+        /// </summary>
+        public String[] GetPorts()
+        {
+            String[] portList = SerialPort.GetPortNames();
+            Console.WriteLine("COM Ports:");
+            foreach (string s in portList)
+            {
+                Console.WriteLine(" {0}", s);
+            }
+
+            return portList;
+        }
+
+        /// <summary>
+        /// Pin Changed Event Handler.
         /// </summary>
         /// <param name="sender">SerialPort object</param>
         /// <param name="e">SerialPinChangedEventArgs object</param>

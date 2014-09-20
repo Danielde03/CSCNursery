@@ -56,7 +56,7 @@
             this.tabControl1.Location = new System.Drawing.Point(13, 13);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(397, 211);
+            this.tabControl1.Size = new System.Drawing.Size(328, 187);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -67,7 +67,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(389, 185);
+            this.tabPage1.Size = new System.Drawing.Size(320, 161);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -75,7 +75,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(335, 235);
+            this.buttonCancel.Location = new System.Drawing.Point(266, 206);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -85,7 +85,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(254, 235);
+            this.buttonOK.Location = new System.Drawing.Point(185, 206);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
@@ -98,13 +98,14 @@
             this.groupBox1.Controls.Add(this.comboBoxComPort);
             this.groupBox1.Location = new System.Drawing.Point(7, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(184, 62);
+            this.groupBox1.Size = new System.Drawing.Size(145, 55);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "COM Port";
             // 
             // comboBoxComPort
             // 
+            this.comboBoxComPort.FormatString = "COM#";
             this.comboBoxComPort.FormattingEnabled = true;
             this.comboBoxComPort.Location = new System.Drawing.Point(7, 20);
             this.comboBoxComPort.Name = "comboBoxComPort";
@@ -115,9 +116,9 @@
             // 
             this.groupBox2.Controls.Add(this.buttonBrowse);
             this.groupBox2.Controls.Add(this.textBoxNotification);
-            this.groupBox2.Location = new System.Drawing.Point(4, 76);
+            this.groupBox2.Location = new System.Drawing.Point(7, 68);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(379, 100);
+            this.groupBox2.Size = new System.Drawing.Size(305, 80);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Notification Sound";
@@ -126,12 +127,12 @@
             // 
             this.textBoxNotification.Location = new System.Drawing.Point(10, 22);
             this.textBoxNotification.Name = "textBoxNotification";
-            this.textBoxNotification.Size = new System.Drawing.Size(279, 20);
+            this.textBoxNotification.Size = new System.Drawing.Size(289, 20);
             this.textBoxNotification.TabIndex = 0;
             // 
             // buttonBrowse
             // 
-            this.buttonBrowse.Location = new System.Drawing.Point(298, 20);
+            this.buttonBrowse.Location = new System.Drawing.Point(224, 48);
             this.buttonBrowse.Name = "buttonBrowse";
             this.buttonBrowse.Size = new System.Drawing.Size(75, 23);
             this.buttonBrowse.TabIndex = 1;
@@ -142,9 +143,9 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.numericUpDownWebPort);
-            this.groupBox3.Location = new System.Drawing.Point(198, 7);
+            this.groupBox3.Location = new System.Drawing.Point(158, 7);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(185, 62);
+            this.groupBox3.Size = new System.Drawing.Size(154, 55);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Web Port";
@@ -170,7 +171,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 265);
+            this.ClientSize = new System.Drawing.Size(353, 236);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.tabControl1);

@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Controls;
 using NurseryAlertServer.Properties;
 
 namespace NurseryAlertServer
@@ -22,7 +23,11 @@ namespace NurseryAlertServer
         {
             numericUpDownWebPort.Value = Settings.Default.WebPort;
             textBoxNotification.Text = Settings.Default.NotificationSound;
-            comboBoxComPort.Text = Settings.Default.TallyComPort;
+
+            String[] PortList = Tally.TallyManager.Instance.GetPorts();
+            comboBoxComPort.DataSource = PortList;
+            if(PortList.Contains(Settings.Default.TallyComPort))
+                comboBoxComPort.Text = Settings.Default.TallyComPort;
         }
 
         private void UpdateSettings()
