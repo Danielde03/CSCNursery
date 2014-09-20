@@ -100,6 +100,7 @@ Section "Uninstall"
     
   Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
   Delete "$SMPROGRAMS\$StartMenuFolder\CSC Nursery.lnk"
+  Delete "$DESKTOP\CSC Nursery.lnk"
   RMDir "$SMPROGRAMS\$StartMenuFolder"
   
   DeleteRegKey /ifempty HKLM "Software\CSCNursery"
