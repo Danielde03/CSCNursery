@@ -8,6 +8,11 @@
   !include "MUI2.nsh"
 
 ;--------------------------------
+;Variables
+
+  Var StartMenuFolder
+
+;--------------------------------
 ;General
 
   ;Name and file
@@ -36,6 +41,12 @@
 ;Pages
 
   !insertmacro MUI_PAGE_DIRECTORY
+  
+  !define MUI_STARTMENUPAGE_REGISTRY_ROOT "HKCU" 
+  !define MUI_STARTMENUPAGE_REGISTRY_KEY "Software\CSCNursery" 
+  !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME "Start Menu Folder"
+  !insertmacro MUI_PAGE_STARTMENU Application $StartMenuFolder
+  
   !insertmacro MUI_PAGE_INSTFILES
   
   !insertmacro MUI_UNPAGE_CONFIRM
@@ -55,16 +66,22 @@ Section "Main Section" SecMain
   
   File ..\NurseryAlertServer\bin\Release\NurseryAlertServer.exe
   
-  CreateShortCut "$DESKTOP\CSC Nursery.lnk" "$INSTDIR\NurseryAlertServer.exe"
-
-  ;Add Start Menu Shortcuts
-  
   ;Store installation folder
   WriteRegStr HKLM "Software\CSCNursery" "Install_Dir" $INSTDIR
   
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-
+  
+  !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
+    
+    ;Create shortcuts
+    CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
+	CreateShortCut "$SMPROGRAMS\$StartMenuFolder\CSC Nursery.lnk" "$INSTDIR\NurseryAlertServer.exe"
+    CreateShortCut "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk" "$INSTDIR\Uninstall.exe"
+	CreateShortCut "$DESKTOP\CSC Nursery.lnk" "$INSTDIR\NurseryAlertServer.exe"
+  
+  !insertmacro MUI_STARTMENU_WRITE_END
+  
 SectionEnd
 
 
@@ -74,8 +91,15 @@ SectionEnd
 Section "Uninstall"
 
   Delete $INSTDIR\NurseryAlertServer.exe
+  Delete "$INSTDIR\Uninstall.exe"
   RMDir "$INSTDIR"
-
+  
+  !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuFolder
+    
+  Delete "$SMPROGRAMS\$StartMenuFolder\Uninstall.lnk"
+  Delete "$SMPROGRAMS\$StartMenuFolder\CSC Nursery.lnk"
+  RMDir "$SMPROGRAMS\$StartMenuFolder"
+  
   DeleteRegKey /ifempty HKLM "Software\CSCNursery"
 
 SectionEnd
