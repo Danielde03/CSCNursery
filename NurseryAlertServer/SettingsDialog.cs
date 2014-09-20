@@ -58,7 +58,10 @@ namespace NurseryAlertServer
         {
             Settings.Default.WebPort = (int)numericUpDownWebPort.Value;
             Settings.Default.NotificationSound = textBoxNotification.Text;
-            Settings.Default.TallyComPort = comboBoxComPort.Text;
+
+            String[] PortList = Tally.TallyManager.Instance.GetPorts();
+            if(PortList.Contains(comboBoxComPort.Text))
+                Settings.Default.TallyComPort = comboBoxComPort.Text;
             Settings.Default.Save();
         }
 
