@@ -133,7 +133,7 @@ namespace NurseryAlertServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\Jeremy_Ramer\\personal\\CSCNursery\\NurseryAlertServer\\baby_cry_short.wav")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Program Files (x86)\\CSCNursery\\baby_cry_short.wav")]
         public string NotificationSound {
             get {
                 return ((string)(this["NotificationSound"]));

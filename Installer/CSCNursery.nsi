@@ -65,6 +65,7 @@ Section "Main Section" SecMain
   SetOutPath "$INSTDIR"
   
   File ..\NurseryAlertServer\bin\Release\NurseryAlertServer.exe
+  File ..\NurseryAlertServer\baby_cry_short.wav
   
   ;Store installation folder
   WriteRegStr HKLM "Software\CSCNursery" "Install_Dir" $INSTDIR
@@ -91,6 +92,7 @@ SectionEnd
 Section "Uninstall"
 
   Delete $INSTDIR\NurseryAlertServer.exe
+  Delete $INSTDIR\baby_cry_short.wav
   Delete "$INSTDIR\Uninstall.exe"
   RMDir "$INSTDIR"
   
