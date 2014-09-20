@@ -37,6 +37,7 @@
             this.colDateDisplay = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddEntry = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonMarkDisplayed = new System.Windows.Forms.ToolStripButton();
@@ -45,7 +46,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelCurrentDisplay = new System.Windows.Forms.ToolStripStatusLabel();
-            this.preferencesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -115,6 +115,13 @@
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
             this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.preferencesToolStripMenuItem.Text = "Settings";
+            // 
+            // preferencesToolStripMenuItem1
+            // 
+            this.preferencesToolStripMenuItem1.Name = "preferencesToolStripMenuItem1";
+            this.preferencesToolStripMenuItem1.Size = new System.Drawing.Size(144, 22);
+            this.preferencesToolStripMenuItem1.Text = "Preferences...";
+            this.preferencesToolStripMenuItem1.Click += new System.EventHandler(this.preferencesToolStripMenuItem1_Click);
             // 
             // toolStrip1
             // 
@@ -187,13 +194,6 @@
             this.toolStripStatusLabelCurrentDisplay.Name = "toolStripStatusLabelCurrentDisplay";
             this.toolStripStatusLabelCurrentDisplay.Size = new System.Drawing.Size(0, 17);
             // 
-            // preferencesToolStripMenuItem1
-            // 
-            this.preferencesToolStripMenuItem1.Name = "preferencesToolStripMenuItem1";
-            this.preferencesToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.preferencesToolStripMenuItem1.Text = "Preferences...";
-            this.preferencesToolStripMenuItem1.Click += new System.EventHandler(this.preferencesToolStripMenuItem1_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -205,7 +205,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
-            this.Text = "Nursery Alert Server";
+            this.Text = "CSC Nursery";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.menuStrip1.ResumeLayout(false);
