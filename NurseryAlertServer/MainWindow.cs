@@ -199,5 +199,21 @@ namespace NurseryAlertServer
             }
         }
 
+        /// <summary>
+        /// Handler for the Settings menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void preferencesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SettingsDialog dlg = new SettingsDialog();
+            dlg.ShowDialog();
+
+            if (dlg.DialogResult == DialogResult.OK)
+            {
+                Console.WriteLine("Settings Updated");
+            }
+        }
+
     }
 }
