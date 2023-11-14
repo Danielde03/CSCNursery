@@ -48,7 +48,7 @@
       <Value Profile="(Default)">NUMBERTEMPLATE</Value>
     </Setting>
     <Setting Name="Graphic_Text_Field" Type="System.String" Scope="User">
-      <Value Profile="(Default)">F0</Value>
+      <Value Profile="(Default)">f0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

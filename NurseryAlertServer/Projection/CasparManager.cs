@@ -5,6 +5,7 @@ using System.Text;
 using System.Net.Sockets;
 using NurseryAlertServer.Properties;
 using System.IO;
+using System.Windows;
 
 namespace NurseryAlertServer.Projection
 {
@@ -28,20 +29,33 @@ namespace NurseryAlertServer.Projection
         /// </summary>
         private CasparManager()
         {
-            // assign values to the CasparCG variables
+            // get default values
             getValues();
 
             // get the connection
-             client = new TcpClient(server, port);
-             stream = new BinaryWriter(client.GetStream());
+            casparClient = new TcpClient();
+            try
+            {
+                casparClient.Connect(server, port);
+                Console.WriteLine("Connected to CasparCG");
 
-            // TESTING
-            stream.Write("VERSION");
+                // get the writer
+                writer = new StreamWriter(casparClient.GetStream());
+            } catch (SocketException e)
+            {
+                MessageBox.Show("Failed connecting to CapsarCG\n");
+                return;
+            }
+
+            
+
+
         }
 
         // variables
-        private BinaryWriter stream;
-        private TcpClient client;
+        private TcpClient casparClient;
+        StreamReader reader;
+        StreamWriter writer;
 
         private int port;
         private string server;
@@ -57,7 +71,7 @@ namespace NurseryAlertServer.Projection
         /// Get all the CasparCG values based on the Settings.settings values.
         /// The values can be changed in the GUI settings
         /// </summary>
-        public void getValues()
+        private void getValues()
         {
             port = Settings.Default.CasparCG_Port;
             server = Settings.Default.CasparCG_IP;
@@ -65,6 +79,36 @@ namespace NurseryAlertServer.Projection
             layer = Settings.Default.Graphic_Layer;
             template = Settings.Default.Caspar_Template;
             textField = Settings.Default.Graphic_Text_Field;
+        }
+
+        /// <summary>
+        /// Write text to CasparCG
+        /// </summary>
+        /// /// <param name="message">Message to display</param>
+        public void writeToCaspar(string message)
+        {
+
+            if (writer == null)
+            {
+                MessageBox.Show("Failed connecting to CapsarCG\n");
+                return;
+            }
+            
+            string displayText = String.Format("CG {0}-{1} ADD 1 \"{2}\" 1 \"<templateData><componentData id =\\\"{3}\\\"><data id=\\\"text\\\" value=\\\"{4}\\\"/></componentData></templateData>\"\\r\\n", channel, layer, template, textField, message);
+            writer.WriteLine(displayText);
+            writer.Flush();
+        }
+
+        public void clear()
+        {
+            if (writer == null)
+            {
+                MessageBox.Show("Failed connecting to CapsarCG\n");
+                return;
+            }
+
+            writer.WriteLine("CG 1-20 NEXT 1\r\n");
+            writer.Flush();
         }
 
     }

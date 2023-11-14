@@ -205,7 +205,7 @@ namespace NurseryAlertServer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("F0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("f0")]
         public string Graphic_Text_Field {
             get {
                 return ((string)(this["Graphic_Text_Field"]));
