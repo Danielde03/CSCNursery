@@ -35,7 +35,7 @@
     <Setting Name="CasparCG_IP" Type="System.String" Scope="User">
       <Value Profile="(Default)">127.0.0.1</Value>
     </Setting>
-    <Setting Name="CasparCG_Port" Type="System.String" Scope="User">
+    <Setting Name="CasparCG_Port" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">5250</Value>
     </Setting>
     <Setting Name="Graphic_Channel" Type="System.String" Scope="User">

@@ -76,7 +76,8 @@ namespace NurseryAlertServer
         {
             Console.WriteLine("MainWindow Load");
 
-            Projection.ProjectionManager.Instance.ShowProjectionWindow();
+            // Projection.ProjectionManager.Instance.ShowProjectionWindow();
+            Projection.CasparManager inst = Projection.CasparManager.Instance;
 
             PagerList.Instance.PagerListUpdated += new PagerList.PagerListUpdate(PagerListUpdateHandler);
 

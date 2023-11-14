@@ -70,6 +70,7 @@
       <DependentUpon>AddEntryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="PagerList.cs" />
+    <Compile Include="Projection\CasparManager.cs" />
     <Compile Include="SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>

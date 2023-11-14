@@ -158,9 +158,9 @@ namespace NurseryAlertServer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("5250")]
-        public string CasparCG_Port {
+        public int CasparCG_Port {
             get {
-                return ((string)(this["CasparCG_Port"]));
+                return ((int)(this["CasparCG_Port"]));
             }
             set {
                 this["CasparCG_Port"] = value;
