@@ -32,29 +32,12 @@ namespace NurseryAlertServer.Projection
             // get default values
             getValues();
 
-            // get the connection
-            casparClient = new TcpClient();
-            try
-            {
-                casparClient.Connect(server, port);
-                Console.WriteLine("Connected to CasparCG");
-
-                // get the writer
-                writer = new StreamWriter(casparClient.GetStream());
-            } catch (SocketException e)
-            {
-                MessageBox.Show("Failed connecting to CapsarCG\n");
-                return;
-            }
-
-            
-
+            connect();
 
         }
 
         // variables
         private TcpClient casparClient;
-        StreamReader reader;
         StreamWriter writer;
 
         private int port;
@@ -99,6 +82,9 @@ namespace NurseryAlertServer.Projection
             writer.Flush();
         }
 
+        /// <summary>
+        /// Clear the screen
+        /// </summary>
         public void clear()
         {
             if (writer == null)
@@ -109,6 +95,49 @@ namespace NurseryAlertServer.Projection
 
             writer.WriteLine("CG 1-20 NEXT 1\r\n");
             writer.Flush();
+        }
+
+        /// <summary>
+        /// Connect to CasparCG
+        /// </summary>
+        public void connect()
+        {
+            bool reconnecting = false;
+
+            // if not null, trying to reconnect by new values
+            if (casparClient != null)
+            {
+                reconnecting = true;
+                casparClient.Close();
+
+                casparClient = null;
+                writer = null;
+
+                getValues();
+
+            }
+            
+
+            // get the connection
+            casparClient = new TcpClient();
+            try
+            {
+                
+                casparClient.Connect(server, port);
+                Console.WriteLine("Connected to CasparCG");
+
+                // get the writer
+                writer = new StreamWriter(casparClient.GetStream());
+            }
+            catch
+            {
+                MessageBox.Show("Failed connecting to CapsarCG\n");
+                return;
+            }
+            if (reconnecting)
+            {
+                MessageBox.Show("Connected to CasparCG\n");
+            }
         }
 
     }

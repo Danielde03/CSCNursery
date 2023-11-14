@@ -45,6 +45,7 @@ namespace NurseryAlertServer
 
         private void UpdateUI()
         {
+            numericUpDownCasparPort.Value = Settings.Default.CasparCG_Port;
             numericUpDownWebPort.Value = Settings.Default.WebPort;
             textBoxNotification.Text = Settings.Default.NotificationSound;
 
@@ -58,11 +59,15 @@ namespace NurseryAlertServer
         {
             Settings.Default.WebPort = (int)numericUpDownWebPort.Value;
             Settings.Default.NotificationSound = textBoxNotification.Text;
+            Settings.Default.CasparCG_Port = (int)numericUpDownCasparPort.Value;
 
             String[] PortList = Tally.TallyManager.Instance.GetPorts();
             if(PortList.Contains(comboBoxComPort.Text))
                 Settings.Default.TallyComPort = comboBoxComPort.Text;
             Settings.Default.Save();
+
+            // reconnect to CasparCG
+            Projection.CasparManager.Instance.connect();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
