@@ -32,5 +32,23 @@
     <Setting Name="NotificationSound" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Program Files (x86)\CSCNursery\baby_cry_short.wav</Value>
     </Setting>
+    <Setting Name="CasparCG_IP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.0.0.1</Value>
+    </Setting>
+    <Setting Name="CasparCG_Port" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5250</Value>
+    </Setting>
+    <Setting Name="Graphic_Channel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Graphic_Layer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="Caspar_Template" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NUMBERTEMPLATE</Value>
+    </Setting>
+    <Setting Name="Graphic_Text_Field" Type="System.String" Scope="User">
+      <Value Profile="(Default)">F0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
