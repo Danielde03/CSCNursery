@@ -109,7 +109,7 @@ namespace NurseryAlertServer
         /// <param name="text">Text to display</param>
         private void DisplayPagerText(String text)
         {
-            // TODO: send to CapsarCG
+            Projection.CasparManager.Instance.writeToCaspar(text);
         }
 
         /// <summary>
