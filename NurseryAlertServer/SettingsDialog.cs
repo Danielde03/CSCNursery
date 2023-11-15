@@ -45,8 +45,15 @@ namespace NurseryAlertServer
 
         private void UpdateUI()
         {
+            
             numericUpDownWebPort.Value = Settings.Default.WebPort;
             textBoxNotification.Text = Settings.Default.NotificationSound;
+            numericUpDownCasparPort.Value = Settings.Default.CasparCG_Port;
+            textBoxCasparIp.Text = Settings.Default.CasparCG_IP;
+            textBoxGraphicChannel.Text = Settings.Default.Graphic_Channel;
+            textBoxGraphicLayer.Text = Settings.Default.Graphic_Layer;
+            textBoxTemplate.Text = Settings.Default.Caspar_Template;
+            textBoxTextField.Text = Settings.Default.Graphic_Text_Field;
 
             String[] PortList = Tally.TallyManager.Instance.GetPorts();
             comboBoxComPort.DataSource = PortList;
@@ -58,11 +65,21 @@ namespace NurseryAlertServer
         {
             Settings.Default.WebPort = (int)numericUpDownWebPort.Value;
             Settings.Default.NotificationSound = textBoxNotification.Text;
+            Settings.Default.CasparCG_Port = (int)numericUpDownCasparPort.Value;
+            Settings.Default.CasparCG_IP = textBoxCasparIp.Text;
+            Settings.Default.Graphic_Channel = textBoxGraphicChannel.Text;
+            Settings.Default.Graphic_Layer = textBoxGraphicLayer.Text;
+            Settings.Default.Caspar_Template = textBoxTemplate.Text;
+            Settings.Default.Graphic_Text_Field = textBoxTextField.Text;
+
 
             String[] PortList = Tally.TallyManager.Instance.GetPorts();
             if(PortList.Contains(comboBoxComPort.Text))
                 Settings.Default.TallyComPort = comboBoxComPort.Text;
             Settings.Default.Save();
+
+            // reconnect to CasparCG
+            Projection.CasparManager.Instance.connect();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

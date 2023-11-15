@@ -76,7 +76,7 @@ namespace NurseryAlertServer
         {
             Console.WriteLine("MainWindow Load");
 
-            Projection.ProjectionManager.Instance.ShowProjectionWindow();
+            Projection.CasparManager.Instance.clear(); // clear CasparCG
 
             PagerList.Instance.PagerListUpdated += new PagerList.PagerListUpdate(PagerListUpdateHandler);
 
@@ -109,9 +109,7 @@ namespace NurseryAlertServer
         /// <param name="text">Text to display</param>
         private void DisplayPagerText(String text)
         {
-            var lt = new Projection.LiveText(text);
-            Projection.ProjectionManager.Instance.DisplayLayer(2, lt);
-            toolStripStatusLabelCurrentDisplay.Text = text;
+            Projection.CasparManager.Instance.writeToCaspar(text);
         }
 
         /// <summary>

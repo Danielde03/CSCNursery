@@ -6,11 +6,11 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5F1B8A61-8F4E-462A-B704-ECCDDA8328C9}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NurseryAlertServer</RootNamespace>
     <AssemblyName>NurseryAlertServer</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>NurseryAlertServer.Program</StartupObject>
@@ -70,6 +72,7 @@
       <DependentUpon>AddEntryDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="PagerList.cs" />
+    <Compile Include="Projection\CasparManager.cs" />
     <Compile Include="SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,20 +87,6 @@
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Projection\BaseLayer.cs" />
-    <Compile Include="Projection\LiveText.cs" />
-    <Compile Include="Projection\projectionControl.xaml.cs">
-      <DependentUpon>projectionControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Projection\ProjectionManager.cs" />
-    <Compile Include="Projection\projectionWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Projection\projectionWindow.designer.cs">
-      <DependentUpon>projectionWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Projection\ScreenManager.cs" />
-    <Compile Include="Projection\TextLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tally\TallyManager.cs" />
     <Compile Include="Utils\StringUtils.cs" />
@@ -109,9 +98,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Projection\projectionWindow.resx">
-      <DependentUpon>projectionWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -136,12 +122,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Projection\projectionControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSCNursery.ico" />
