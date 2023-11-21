@@ -110,6 +110,7 @@ namespace NurseryAlertServer
         private void DisplayPagerText(String text)
         {
             Projection.CasparManager.Instance.writeToCaspar(text);
+            toolStripStatusLabelCurrentDisplay.Text = text;
         }
 
         /// <summary>
