@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\NurseryAlertServer",
+    "\\NurseryAlertServer\\Projection",
+    "\\NurseryAlertServer\\Properties"
   ],
-  "SelectedNode": "\\CSCNursery.sln",
+  "SelectedNode": "\\NurseryAlertServer\\Properties\\AssemblyInfo.cs",
   "PreviewInSolutionExplorer": false
 }
