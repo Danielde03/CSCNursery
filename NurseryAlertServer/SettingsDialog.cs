@@ -54,11 +54,7 @@ namespace NurseryAlertServer
             textBoxGraphicLayer.Text = Settings.Default.Graphic_Layer;
             textBoxTemplate.Text = Settings.Default.Caspar_Template;
             textBoxTextField.Text = Settings.Default.Graphic_Text_Field;
-
-            String[] PortList = Tally.TallyManager.Instance.GetPorts();
-            comboBoxComPort.DataSource = PortList;
-            if(PortList.Contains(Settings.Default.TallyComPort))
-                comboBoxComPort.Text = Settings.Default.TallyComPort;
+            comboBoxTSLPort.Text = Settings.Default.Tally_Address;
         }
 
         private void UpdateSettings()
@@ -71,12 +67,7 @@ namespace NurseryAlertServer
             Settings.Default.Graphic_Layer = textBoxGraphicLayer.Text;
             Settings.Default.Caspar_Template = textBoxTemplate.Text;
             Settings.Default.Graphic_Text_Field = textBoxTextField.Text;
-
-
-            String[] PortList = Tally.TallyManager.Instance.GetPorts();
-            if(PortList.Contains(comboBoxComPort.Text))
-                Settings.Default.TallyComPort = comboBoxComPort.Text;
-            Settings.Default.Save();
+            Settings.Default.Tally_Address = comboBoxTSLPort.Text;
 
             // reconnect to CasparCG
             Projection.CasparManager.Instance.connect();

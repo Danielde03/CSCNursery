@@ -38,7 +38,7 @@ namespace NurseryAlertServer
             this.buttonBrowse = new System.Windows.Forms.Button();
             this.textBoxNotification = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBoxComPort = new System.Windows.Forms.ComboBox();
+            this.comboBoxTSLPort = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.numericUpDownCasparPort = new System.Windows.Forms.NumericUpDown();
@@ -153,22 +153,20 @@ namespace NurseryAlertServer
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboBoxComPort);
+            this.groupBox1.Controls.Add(this.comboBoxTSLPort);
             this.groupBox1.Location = new System.Drawing.Point(6, 26);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(145, 55);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "COM Port";
+            this.groupBox1.Text = "Tally Address";
             // 
-            // comboBoxComPort
+            // comboBoxTSLPort
             // 
-            this.comboBoxComPort.FormatString = "COM#";
-            this.comboBoxComPort.FormattingEnabled = true;
-            this.comboBoxComPort.Location = new System.Drawing.Point(7, 20);
-            this.comboBoxComPort.Name = "comboBoxComPort";
-            this.comboBoxComPort.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxComPort.TabIndex = 0;
+            this.comboBoxTSLPort.Location = new System.Drawing.Point(7, 20);
+            this.comboBoxTSLPort.Name = "comboBoxTSLPort";
+            this.comboBoxTSLPort.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxTSLPort.TabIndex = 0;
             // 
             // tabPage2
             // 
@@ -372,7 +370,7 @@ namespace NurseryAlertServer
         private System.Windows.Forms.TextBox textBoxTemplate;
         private System.Windows.Forms.TextBox textBoxTextField;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBoxComPort;
+        private System.Windows.Forms.TextBox comboBoxTSLPort;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;

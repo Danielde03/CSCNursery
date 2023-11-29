@@ -214,5 +214,29 @@ namespace NurseryAlertServer.Properties {
                 this["Graphic_Text_Field"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40001")]
+        public int TSL_Port {
+            get {
+                return ((int)(this["TSL_Port"]));
+            }
+            set {
+                this["TSL_Port"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("23")]
+        public string Tally_Address {
+            get {
+                return ((string)(this["Tally_Address"]));
+            }
+            set {
+                this["Tally_Address"] = value;
+            }
+        }
     }
 }
