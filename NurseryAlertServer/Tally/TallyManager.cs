@@ -27,7 +27,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO.Ports;
+using System.Net.Sockets;
+using System.Net;
 using NurseryAlertServer.Properties;
+using System.Windows;
+using System.Threading;
 
 namespace NurseryAlertServer.Tally
 {
@@ -46,9 +50,12 @@ namespace NurseryAlertServer.Tally
             get { return _instance ?? (_instance = new TallyManager()); }
         }
 
-        private static SerialPort _serialPort;
+        private static UdpClient _udpclient;
 
         private int _tallyState;
+
+        private byte[] bytRecieved;
+        private bool isActive = false;
 
         // Tally change detection event
         public delegate void TallyChange(TallyChangedEventArgs e);
@@ -63,7 +70,7 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         private TallyManager()
         {
-            _serialPort = new SerialPort();
+            _udpclient = new UdpClient();
             _tallyState = 0;
         }
 
@@ -72,30 +79,28 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         public void OpenTallyPort()
         {
-            String[] PortList = GetPorts();
-            String port;
-            if (PortList.Length <= 0)
+            try
             {
-                port = Settings.Default.TallyComPort;
+
+                // open port
+                _udpclient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Settings.Default.TSL_Port));
+                Console.WriteLine("Tally Port open on port {0}", Settings.Default.TSL_Port);
+
+                // open thread to listen for tallies.
+                Thread thread = new Thread(new ThreadStart(TallyManager.Instance.Process));
+                isActive = true;
+                thread.Start();
+
             }
-            else
+            catch (Exception e)
             {
-                if (PortList.Contains(Settings.Default.TallyComPort))
-                {
-                    Console.WriteLine("Use selected");
-                    port = Settings.Default.TallyComPort;
-                }
-                else
-                {
-                    Console.WriteLine("Use first");
-                    port = PortList[0];
-                }
+                MessageBox.Show("Tally Port Error\n");
+                Console.WriteLine(e.Message);
+                return;
             }
-            Console.WriteLine("using {0}", port);
-            _serialPort.PortName = port;
-            _serialPort.PinChanged += new SerialPinChangedEventHandler(PinChangedEventHandler);
-            _serialPort.Open();
-            _serialPort.RtsEnable = true;
+
+
         }
 
         /// <summary>
@@ -103,51 +108,54 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         public void ReopenTallyPort()
         {
-            if (!_serialPort.PortName.Equals(Settings.Default.TallyComPort))
-            {
-                Console.WriteLine("Reopen COM port");
-                _serialPort.Close();
-                _serialPort.PortName = Settings.Default.TallyComPort;
-                _serialPort.Open();
-                _serialPort.RtsEnable = true;
-            }
+            // if (!_serialPort.PortName.Equals(Settings.Default.TallyComPort))
+            //{
+
+            //}
         }
 
         /// <summary>
-        /// Gets a list of available COM ports
-        /// </summary>
-        public String[] GetPorts()
-        {
-            String[] portList = SerialPort.GetPortNames();
-            Console.WriteLine("COM Ports:");
-            foreach (string s in portList)
-            {
-                Console.WriteLine(" {0}", s);
-            }
-
-            return portList;
-        }
-
-        /// <summary>
-        /// Pin Changed Event Handler.
+        /// Listener for TSL tally data
         /// </summary>
         /// <param name="sender">SerialPort object</param>
         /// <param name="e">SerialPinChangedEventArgs object</param>
-        private void PinChangedEventHandler(object sender, SerialPinChangedEventArgs e)
+        private void Process()
         {
-            SerialPort sp = (SerialPort)sender;
-            //Console.WriteLine("Pin Change {0} - BRK {1} DCD {2} CTS {3} DSR {4}",
-            //    e.EventType, sp.BreakState, sp.CDHolding, sp.CtsHolding, sp.DsrHolding);
-
-            int newState = sp.CtsHolding ? 1 : 0;
-
-            if (newState != _tallyState && TallyChanged != null)
+            while (isActive)
             {
-                TallyChangedEventArgs args = new TallyChangedEventArgs();
-                args.state = newState;
-                TallyChanged(args);
+                
+                // clear recieved data
+                bytRecieved = null;
+
+                // get recieved data
+                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                try
+                {
+                    bytRecieved = _udpclient.Receive(ref RemoteIpEndPoint);
+                    Console.WriteLine("Data recieved: {0}", Encoding.UTF8.GetString(bytRecieved, 0, bytRecieved.Length));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Tally Client Error\n");
+                    Console.WriteLine(e.Message);
+                    return;
+                }
+
+
+                // get byte data TODO: swap out 'false' for the actualy tally data.
+
+                int newState = false ? 1 : 0;
+
+                if (newState != _tallyState && TallyChanged != null)
+                {
+                    TallyChangedEventArgs args = new TallyChangedEventArgs();
+                    args.state = newState;
+                    TallyChanged(args);
+                }
+                _tallyState = newState;
+
             }
-            _tallyState = newState;
+
         }
     }
 }
