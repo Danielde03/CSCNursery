@@ -142,9 +142,9 @@ namespace NurseryAlertServer.Tally
                 }
 
 
-                // get byte data TODO: swap out 'false' for the actualy tally data.
+                // get byte data TODO: get proper bit data. This is only for testing...
 
-                int newState = false ? 1 : 0;
+                int newState = Encoding.UTF8.GetString(bytRecieved, 0, bytRecieved.Length).Equals("1") ? 1 : 0;
 
                 if (newState != _tallyState && TallyChanged != null)
                 {
