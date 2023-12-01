@@ -32,6 +32,7 @@ using System.Net;
 using NurseryAlertServer.Properties;
 using System.Windows;
 using System.Threading;
+using System.Collections;
 
 namespace NurseryAlertServer.Tally
 {
@@ -54,7 +55,7 @@ namespace NurseryAlertServer.Tally
 
         private int _tallyState;
 
-        private byte[] bytRecieved;
+        private byte[] byteArray;
         private bool isActive = false;
 
         // Tally change detection event
@@ -104,37 +105,52 @@ namespace NurseryAlertServer.Tally
         }
 
         /// <summary>
-        /// Reopen the tally port
+        /// Listener for TSL tally data and process
         /// </summary>
-        public void ReopenTallyPort()
-        {
-            // if (!_serialPort.PortName.Equals(Settings.Default.TallyComPort))
-            //{
-
-            //}
-        }
-
-        /// <summary>
-        /// Listener for TSL tally data
-        /// </summary>
-        /// <param name="sender">SerialPort object</param>
-        /// <param name="e">SerialPinChangedEventArgs object</param>
         private void Process()
         {
             while (isActive)
             {
-                
-                // clear recieved data
-                bytRecieved = null;
 
-                // get recieved data
+                // clear recieved data
+                byteArray = null;
+                int newState = _tallyState;
+
+
+
                 IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
                 try
                 {
-                    bytRecieved = _udpclient.Receive(ref RemoteIpEndPoint);
-                    Console.WriteLine("Data recieved: {0}", Encoding.UTF8.GetString(bytRecieved, 0, bytRecieved.Length));
-                }
-                catch (Exception e)
+                    // get recieved data
+                    byteArray = _udpclient.Receive(ref RemoteIpEndPoint);
+
+                    // handle
+                    byte header = byteArray[0];
+                    if (header - 128 == Int32.Parse(Settings.Default.Tally_Address))
+                    {
+                        Console.WriteLine("Tally address match");
+
+                        // get control bits. If second is on, return 1
+                        byte[] control = { byteArray[1] };
+                        BitArray controlBits = new BitArray(control);
+
+                        newState = (bool)controlBits[1] ? 1 : 0;
+
+                    } else
+                    {
+                        // header address does not match. Ignore tally.
+                        continue;
+                    }
+
+                    
+
+                } catch (IndexOutOfRangeException e)
+                {
+
+                    Console.WriteLine("Not enough bytes were sent: {0}", e.Message);
+                    continue;
+
+                } catch (Exception e)
                 {
                     MessageBox.Show("Tally Client Error\n");
                     Console.WriteLine(e.Message);
@@ -142,10 +158,7 @@ namespace NurseryAlertServer.Tally
                 }
 
 
-                // get byte data TODO: get proper bit data. This is only for testing...
-
-                int newState = Encoding.UTF8.GetString(bytRecieved, 0, bytRecieved.Length).Equals("1") ? 1 : 0;
-
+                // trigger event if state change
                 if (newState != _tallyState && TallyChanged != null)
                 {
                     TallyChangedEventArgs args = new TallyChangedEventArgs();

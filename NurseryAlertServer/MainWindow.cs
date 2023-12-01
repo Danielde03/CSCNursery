@@ -236,14 +236,6 @@ namespace NurseryAlertServer
             {
                 Console.WriteLine("Settings Updated");
                 PagerList.Instance.LoadSettings();
-                try
-                {
-                    Tally.TallyManager.Instance.ReopenTallyPort();
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Failed opening COM port\n" + ex.Message);
-                }
                 Web.HttpManager.Instance.PortChange();
             }
         }
