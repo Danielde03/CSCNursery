@@ -3,8 +3,9 @@
     "",
     "\\NurseryAlertServer",
     "\\NurseryAlertServer\\Projection",
-    "\\NurseryAlertServer\\Properties"
+    "\\NurseryAlertServer\\Properties",
+    "\\NurseryAlertServer\\Tally"
   ],
-  "SelectedNode": "\\NurseryAlertServer\\PagerList.cs",
+  "SelectedNode": "\\NurseryAlertServer\\Tally\\TallyManager.cs",
   "PreviewInSolutionExplorer": false
 }

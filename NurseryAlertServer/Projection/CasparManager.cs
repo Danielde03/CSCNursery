@@ -112,14 +112,7 @@ namespace NurseryAlertServer.Projection
         /// </summary>
         public void clear()
         {
-            if (writer == null)
-            {
-                MessageBox.Show("Failed connecting to CapsarCG\n");
-                return;
-            }
-
-            writer.WriteLine("CG 1-20 NEXT 1\r\n");
-            writer.Flush();
+            writeToCaspar("");
         }
 
         /// <summary>

@@ -89,7 +89,7 @@ namespace NurseryAlertServer.Tally
                 Console.WriteLine("Tally Port open on port {0}", Settings.Default.TSL_Port);
 
                 // open thread to listen for tallies.
-                Thread thread = new Thread(new ThreadStart(TallyManager.Instance.Process));
+                Thread thread = new Thread(new ThreadStart(Instance.Process));
                 isActive = true;
                 thread.Start();
 
@@ -122,7 +122,9 @@ namespace NurseryAlertServer.Tally
                 try
                 {
                     // get recieved data
+                    Console.WriteLine("listening");
                     byteArray = _udpclient.Receive(ref RemoteIpEndPoint);
+                    Console.WriteLine("heard");
 
                     // handle
                     byte header = byteArray[0];
@@ -134,11 +136,12 @@ namespace NurseryAlertServer.Tally
                         byte[] control = { byteArray[1] };
                         BitArray controlBits = new BitArray(control);
 
-                        newState = (bool)controlBits[1] ? 1 : 0;
+                        newState = controlBits[1] ? 1 : 0;
 
                     } else
                     {
                         // header address does not match. Ignore tally.
+                        Console.WriteLine("no match");
                         continue;
                     }
 
