@@ -122,9 +122,7 @@ namespace NurseryAlertServer.Tally
                 try
                 {
                     // get recieved data
-                    Console.WriteLine("listening");
                     byteArray = _udpclient.Receive(ref RemoteIpEndPoint);
-                    Console.WriteLine("heard");
 
                     // handle
                     byte header = byteArray[0];
@@ -141,7 +139,6 @@ namespace NurseryAlertServer.Tally
                     } else
                     {
                         // header address does not match. Ignore tally.
-                        Console.WriteLine("no match");
                         continue;
                     }
 
