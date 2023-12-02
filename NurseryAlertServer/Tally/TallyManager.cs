@@ -16,7 +16,7 @@
  *   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- *   Author: jdramer
+ *   Author: jdramer, Danielde03
  *
  *   Copyright (c) Holy Spirit
  *
@@ -27,7 +27,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO.Ports;
+using System.Net.Sockets;
+using System.Net;
 using NurseryAlertServer.Properties;
+using System.Windows;
+using System.Threading;
+using System.Collections;
 
 namespace NurseryAlertServer.Tally
 {
@@ -46,9 +51,12 @@ namespace NurseryAlertServer.Tally
             get { return _instance ?? (_instance = new TallyManager()); }
         }
 
-        private static SerialPort _serialPort;
+        private static UdpClient _udpclient;
 
         private int _tallyState;
+
+        private byte[] byteArray;
+        private bool isActive = false;
 
         // Tally change detection event
         public delegate void TallyChange(TallyChangedEventArgs e);
@@ -63,7 +71,7 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         private TallyManager()
         {
-            _serialPort = new SerialPort();
+            _udpclient = new UdpClient();
             _tallyState = 0;
         }
 
@@ -72,82 +80,95 @@ namespace NurseryAlertServer.Tally
         /// </summary>
         public void OpenTallyPort()
         {
-            String[] PortList = GetPorts();
-            String port;
-            if (PortList.Length <= 0)
+            try
             {
-                port = Settings.Default.TallyComPort;
+
+                // open port
+                _udpclient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Settings.Default.TSL_Port));
+                Console.WriteLine("Tally Port open on port {0}", Settings.Default.TSL_Port);
+
+                // open thread to listen for tallies.
+                Thread thread = new Thread(new ThreadStart(Instance.Process));
+                isActive = true;
+                thread.Start();
+
             }
-            else
+            catch (Exception e)
             {
-                if (PortList.Contains(Settings.Default.TallyComPort))
+                MessageBox.Show("Tally Port Error\n");
+                Console.WriteLine(e.Message);
+                return;
+            }
+
+
+        }
+
+        /// <summary>
+        /// Listener for TSL tally data and process
+        /// </summary>
+        private void Process()
+        {
+            while (isActive)
+            {
+
+                // clear recieved data
+                byteArray = null;
+                int newState = _tallyState;
+
+
+
+                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                try
                 {
-                    Console.WriteLine("Use selected");
-                    port = Settings.Default.TallyComPort;
-                }
-                else
+                    // get recieved data
+                    byteArray = _udpclient.Receive(ref RemoteIpEndPoint);
+
+                    // handle
+                    byte header = byteArray[0];
+                    if (header - 128 == Int32.Parse(Settings.Default.Tally_Address))
+                    {
+                        Console.WriteLine("Tally address match");
+
+                        // get control bits. If second is on, return 1
+                        byte[] control = { byteArray[1] };
+                        BitArray controlBits = new BitArray(control);
+
+                        newState = controlBits[1] ? 1 : 0;
+
+                    } else
+                    {
+                        // header address does not match. Ignore tally.
+                        continue;
+                    }
+
+                    
+
+                } catch (IndexOutOfRangeException e)
                 {
-                    Console.WriteLine("Use first");
-                    port = PortList[0];
+
+                    Console.WriteLine("Not enough bytes were sent: {0}", e.Message);
+                    continue;
+
+                } catch (Exception e)
+                {
+                    MessageBox.Show("Tally Client Error\n");
+                    Console.WriteLine(e.Message);
+                    return;
                 }
-            }
-            Console.WriteLine("using {0}", port);
-            _serialPort.PortName = port;
-            _serialPort.PinChanged += new SerialPinChangedEventHandler(PinChangedEventHandler);
-            _serialPort.Open();
-            _serialPort.RtsEnable = true;
-        }
 
-        /// <summary>
-        /// Reopen the tally port
-        /// </summary>
-        public void ReopenTallyPort()
-        {
-            if (!_serialPort.PortName.Equals(Settings.Default.TallyComPort))
-            {
-                Console.WriteLine("Reopen COM port");
-                _serialPort.Close();
-                _serialPort.PortName = Settings.Default.TallyComPort;
-                _serialPort.Open();
-                _serialPort.RtsEnable = true;
-            }
-        }
 
-        /// <summary>
-        /// Gets a list of available COM ports
-        /// </summary>
-        public String[] GetPorts()
-        {
-            String[] portList = SerialPort.GetPortNames();
-            Console.WriteLine("COM Ports:");
-            foreach (string s in portList)
-            {
-                Console.WriteLine(" {0}", s);
+                // trigger event if state change
+                if (newState != _tallyState && TallyChanged != null)
+                {
+                    TallyChangedEventArgs args = new TallyChangedEventArgs();
+                    args.state = newState;
+                    TallyChanged(args);
+                }
+                _tallyState = newState;
+
             }
 
-            return portList;
-        }
-
-        /// <summary>
-        /// Pin Changed Event Handler.
-        /// </summary>
-        /// <param name="sender">SerialPort object</param>
-        /// <param name="e">SerialPinChangedEventArgs object</param>
-        private void PinChangedEventHandler(object sender, SerialPinChangedEventArgs e)
-        {
-            SerialPort sp = (SerialPort)sender;
-            //Console.WriteLine("Pin Change {0} - BRK {1} DCD {2} CTS {3} DSR {4}",
-            //    e.EventType, sp.BreakState, sp.CDHolding, sp.CtsHolding, sp.DsrHolding);
-
-            int newState = sp.CtsHolding ? 1 : 0;
-
-            if (newState != _tallyState && TallyChanged != null)
-            {
-                TallyChangedEventArgs args = new TallyChangedEventArgs();
-                args.state = newState;
-                TallyChanged(args);
-            }
-            _tallyState = newState;
         }
     }
 }

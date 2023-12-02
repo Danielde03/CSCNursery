@@ -285,6 +285,7 @@ namespace NurseryAlertServer
                 }
                 _dataLock.ReleaseMutex();
 
+                MainWindow.Instance.DisplayPagerText(displayText);
                 PagerListUpdated();
             }
             else
@@ -308,6 +309,7 @@ namespace NurseryAlertServer
                 displayText += ", ";
                 displayText += entryText;
             }
+            MainWindow.Instance.DisplayPagerText(displayText);
         }
     }
 }

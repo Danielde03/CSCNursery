@@ -107,9 +107,10 @@ namespace NurseryAlertServer
         /// Display the Pager text on the screen output
         /// </summary>
         /// <param name="text">Text to display</param>
-        private void DisplayPagerText(String text)
+        public void DisplayPagerText(String text)
         {
             Projection.CasparManager.Instance.writeToCaspar(text);
+            toolStripStatusLabelCurrentDisplay.Text = text;
         }
 
         /// <summary>
@@ -156,7 +157,7 @@ namespace NurseryAlertServer
                 item.SubItems.Add(entry.displayTime);
                 listViewEntries.Items.Insert(0, item);
             }
-            DisplayPagerText(text);
+            //DisplayPagerText(text);
         }
 
         /// <summary>
@@ -235,14 +236,6 @@ namespace NurseryAlertServer
             {
                 Console.WriteLine("Settings Updated");
                 PagerList.Instance.LoadSettings();
-                try
-                {
-                    Tally.TallyManager.Instance.ReopenTallyPort();
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Failed opening COM port\n" + ex.Message);
-                }
                 Web.HttpManager.Instance.PortChange();
             }
         }

@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\NurseryAlertServer",
+    "\\NurseryAlertServer\\Projection",
+    "\\NurseryAlertServer\\Properties",
+    "\\NurseryAlertServer\\Tally"
   ],
-  "SelectedNode": "\\CSCNursery.sln",
+  "SelectedNode": "\\NurseryAlertServer\\Tally\\TallyManager.cs",
   "PreviewInSolutionExplorer": false
 }
