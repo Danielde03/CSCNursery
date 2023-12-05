@@ -150,7 +150,8 @@ namespace NurseryAlertServer
                 newItem.time = current.ToString("h:mm:ss tt");
                 newItem.displayTime = "--Never--";
 
-                if (tallyState == 1)
+                // only display if tally is 0 and currently showing <= threshold
+                if (tallyState == 1 || displayQueue.Count >= Int32.Parse(Settings.Default.threshold))
                 {
                     //Currently displaying, queue the item for display later
                     preDisplayQueue.Enqueue(newItem);
