@@ -354,7 +354,7 @@ namespace NurseryAlertServer
             this.groupBox11.Size = new System.Drawing.Size(154, 55);
             this.groupBox11.TabIndex = 2;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Number Threshold";
+            this.groupBox11.Text = "Display Limit";
             // 
             // textBoxthreshold
             // 
