@@ -57,6 +57,7 @@ namespace NurseryAlertServer.Tally
 
         private byte[] byteArray;
         private bool isActive = false;
+        private Thread thread;
 
         // Tally change detection event
         public delegate void TallyChange(TallyChangedEventArgs e);
@@ -76,6 +77,21 @@ namespace NurseryAlertServer.Tally
         }
 
         /// <summary>
+        /// Close the port and open it again with updated values if there are any.
+        /// </summary>
+        public void ReopenTallyPort()
+        {
+            
+            thread.Abort();
+            _udpclient.Close();
+            _udpclient = null;
+            _udpclient = new UdpClient();
+            OpenTallyPort();
+            
+            
+        }
+
+        /// <summary>
         /// Start monitoring the tally port
         /// </summary>
         public void OpenTallyPort()
@@ -85,11 +101,11 @@ namespace NurseryAlertServer.Tally
 
                 // open port
                 _udpclient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Settings.Default.TSL_Port));
-                Console.WriteLine("Tally Port open on port {0}", Settings.Default.TSL_Port);
+                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Int32.Parse(Settings.Default.TSL_Port)));
+                Console.WriteLine("Tally Port open on port {0}", Int32.Parse(Settings.Default.TSL_Port));
 
                 // open thread to listen for tallies.
-                Thread thread = new Thread(new ThreadStart(Instance.Process));
+                thread = new Thread(new ThreadStart(Instance.Process));
                 isActive = true;
                 thread.Start();
 
@@ -149,6 +165,11 @@ namespace NurseryAlertServer.Tally
 
                     Console.WriteLine("Not enough bytes were sent: {0}", e.Message);
                     continue;
+
+                } catch (ThreadAbortException e)
+                {
+                    Console.WriteLine("Thread closed");
+                    return;
 
                 } catch (Exception e)
                 {

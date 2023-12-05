@@ -150,7 +150,8 @@ namespace NurseryAlertServer
                 newItem.time = current.ToString("h:mm:ss tt");
                 newItem.displayTime = "--Never--";
 
-                if (tallyState == 1)
+                // only display if tally is 0 and currently showing <= threshold
+                if (tallyState == 1 || displayQueue.Count >= Int32.Parse(Settings.Default.threshold))
                 {
                     //Currently displaying, queue the item for display later
                     preDisplayQueue.Enqueue(newItem);
@@ -277,12 +278,24 @@ namespace NurseryAlertServer
                 displayText = "";
 
                 //Move items from predisplay to display
-                foreach (var qitem in preDisplayQueue.ToList())
+                if (preDisplayQueue.Count > Int32.Parse(Settings.Default.threshold))
                 {
-                    PagerEntry item = preDisplayQueue.Dequeue();
-                    displayQueue.Enqueue(item);
-                    UpdateDisplayText(item.pagerText);
+                    for (int i = 0; i < Int32.Parse(Settings.Default.threshold); i++)
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
+                } else
+                {
+                    foreach (var qitem in preDisplayQueue.ToList())
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
                 }
+                
                 _dataLock.ReleaseMutex();
 
                 MainWindow.Instance.DisplayPagerText(displayText);

@@ -54,7 +54,9 @@ namespace NurseryAlertServer
             textBoxGraphicLayer.Text = Settings.Default.Graphic_Layer;
             textBoxTemplate.Text = Settings.Default.Caspar_Template;
             textBoxTextField.Text = Settings.Default.Graphic_Text_Field;
-            comboBoxTSLPort.Text = Settings.Default.Tally_Address;
+            comboBoxTallyAdd.Text = Settings.Default.Tally_Address;
+            textBoxtslport.Text = Settings.Default.TSL_Port;
+            textBoxthreshold.Text = Settings.Default.threshold;
         }
 
         private void UpdateSettings()
@@ -67,10 +69,15 @@ namespace NurseryAlertServer
             Settings.Default.Graphic_Layer = textBoxGraphicLayer.Text;
             Settings.Default.Caspar_Template = textBoxTemplate.Text;
             Settings.Default.Graphic_Text_Field = textBoxTextField.Text;
-            Settings.Default.Tally_Address = comboBoxTSLPort.Text;
+            Settings.Default.Tally_Address = comboBoxTallyAdd.Text;
+            Settings.Default.TSL_Port = textBoxtslport.Text;
+            Settings.Default.threshold = textBoxthreshold.Text;
 
             // reconnect to CasparCG
             Projection.CasparManager.Instance.connect();
+
+            // reopen tally port
+            Tally.TallyManager.Instance.ReopenTallyPort();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -89,6 +96,26 @@ namespace NurseryAlertServer
             {
                 textBoxNotification.Text = dlg.FileName;
             }
+        }
+
+        private void groupBox7_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox9_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxTemplate_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox10_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
