@@ -76,6 +76,16 @@ namespace NurseryAlertServer.Tally
         }
 
         /// <summary>
+        /// Close the port and open it again with updated values if there are any.
+        /// </summary>
+        public void ReopenTallyPort()
+        {
+            _udpclient.Close();
+            _udpclient = new UdpClient();
+            OpenTallyPort();
+        }
+
+        /// <summary>
         /// Start monitoring the tally port
         /// </summary>
         public void OpenTallyPort()
@@ -85,8 +95,8 @@ namespace NurseryAlertServer.Tally
 
                 // open port
                 _udpclient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
-                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Settings.Default.TSL_Port));
-                Console.WriteLine("Tally Port open on port {0}", Settings.Default.TSL_Port);
+                _udpclient.Client.Bind(new IPEndPoint(IPAddress.Any, Int32.Parse(Settings.Default.TSL_Port)));
+                Console.WriteLine("Tally Port open on port {0}", Int32.Parse(Settings.Default.TSL_Port));
 
                 // open thread to listen for tallies.
                 Thread thread = new Thread(new ThreadStart(Instance.Process));

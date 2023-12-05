@@ -26,11 +26,14 @@
     <Setting Name="Graphic_Text_Field" Type="System.String" Scope="User">
       <Value Profile="(Default)">f0</Value>
     </Setting>
-    <Setting Name="TSL_Port" Type="System.Int32" Scope="User">
+    <Setting Name="TSL_Port" Type="System.String" Scope="User">
       <Value Profile="(Default)">40001</Value>
     </Setting>
     <Setting Name="Tally_Address" Type="System.String" Scope="User">
       <Value Profile="(Default)">23</Value>
+    </Setting>
+    <Setting Name="threshold" Type="System.String" Scope="User">
+      <Value Profile="(Default)">4</Value>
     </Setting>
   </Settings>
 </SettingsFile>

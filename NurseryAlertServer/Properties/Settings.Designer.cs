@@ -122,9 +122,9 @@ namespace NurseryAlertServer.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("40001")]
-        public int TSL_Port {
+        public string TSL_Port {
             get {
-                return ((int)(this["TSL_Port"]));
+                return ((string)(this["TSL_Port"]));
             }
             set {
                 this["TSL_Port"] = value;
@@ -140,6 +140,18 @@ namespace NurseryAlertServer.Properties {
             }
             set {
                 this["Tally_Address"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public string threshold {
+            get {
+                return ((string)(this["threshold"]));
+            }
+            set {
+                this["threshold"] = value;
             }
         }
     }
