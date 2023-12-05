@@ -278,12 +278,24 @@ namespace NurseryAlertServer
                 displayText = "";
 
                 //Move items from predisplay to display
-                foreach (var qitem in preDisplayQueue.ToList())
+                if (preDisplayQueue.Count > Int32.Parse(Settings.Default.threshold))
                 {
-                    PagerEntry item = preDisplayQueue.Dequeue();
-                    displayQueue.Enqueue(item);
-                    UpdateDisplayText(item.pagerText);
+                    for (int i = 0; i < Int32.Parse(Settings.Default.threshold); i++)
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
+                } else
+                {
+                    foreach (var qitem in preDisplayQueue.ToList())
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
                 }
+                
                 _dataLock.ReleaseMutex();
 
                 MainWindow.Instance.DisplayPagerText(displayText);
