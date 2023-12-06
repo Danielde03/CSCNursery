@@ -31,6 +31,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using NurseryAlertServer.Tally;
 
 namespace NurseryAlertServer
 {
@@ -101,6 +102,7 @@ namespace NurseryAlertServer
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Web.HttpManager.Instance.StopServer();
+            Tally.TallyManager.Instance.CloseTallyPort();
         }
 
         /// <summary>
