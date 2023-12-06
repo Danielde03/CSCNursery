@@ -6,6 +6,6 @@
     "\\NurseryAlertServer\\Properties",
     "\\NurseryAlertServer\\Tally"
   ],
-  "SelectedNode": "\\NurseryAlertServer\\Properties\\Settings.settings",
+  "SelectedNode": "\\NurseryAlertServer\\SettingsDialog.cs",
   "PreviewInSolutionExplorer": false
 }

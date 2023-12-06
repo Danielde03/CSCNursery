@@ -92,6 +92,17 @@ namespace NurseryAlertServer.Tally
         }
 
         /// <summary>
+        /// Close the tally port
+        /// </summary>
+        public void CloseTallyPort()
+        {
+            isActive = false;
+            thread.Abort();
+            _udpclient.Close();
+            _udpclient = null;
+        }
+
+        /// <summary>
         /// Start monitoring the tally port
         /// </summary>
         public void OpenTallyPort()
