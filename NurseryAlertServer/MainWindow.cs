@@ -201,6 +201,7 @@ namespace NurseryAlertServer
                 == DialogResult.Yes)
             {
                 PagerList.Instance.ClearList();
+                DisplayPagerText("");
             }
         }
 
