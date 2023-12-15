@@ -217,7 +217,6 @@ namespace NurseryAlertServer
                 displayQueue.Clear();
                 preDisplayQueue.Clear();
                 displayText = "";
-                Projection.CasparManager.Instance.clear();
 
                 _dataLock.ReleaseMutex();
 
