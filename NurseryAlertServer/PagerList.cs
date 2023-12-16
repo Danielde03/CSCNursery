@@ -256,7 +256,7 @@ namespace NurseryAlertServer
         }
 
         /// <summary>
-        /// Same as ClearDisplayedItems(), but only clear selected items
+        /// Same as ClearDisplayedItems(), but only clear selected, outstanding items
         /// </summary>
         public void ClearSelectedDisplayedItems()
         {
