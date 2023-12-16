@@ -240,7 +240,7 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView listViewEntries;
+        public System.Windows.Forms.ListView listViewEntries;
         private System.Windows.Forms.ColumnHeader colEntryId;
         private System.Windows.Forms.ColumnHeader colEmergency;
         private System.Windows.Forms.ColumnHeader colDateRecv;

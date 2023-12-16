@@ -256,6 +256,76 @@ namespace NurseryAlertServer
         }
 
         /// <summary>
+        /// Same as ClearDisplayedItems(), but only clear selected items
+        /// </summary>
+        public void ClearSelectedDisplayedItems()
+        {
+            if (_dataLock.WaitOne(2000))
+            {
+                foreach (var qitem in displayQueue.ToList())
+                {
+                    //Use the reverse index to find the entry
+                    int rindex = _PagerEntries.Count - qitem.index - 1;
+
+                    // only remove if selected and outstaning
+                    if (!MainWindow.Instance.listViewEntries.Items[rindex].Selected || !MainWindow.Instance.listViewEntries.Items[rindex].SubItems[2].Text.Equals("Yes"))
+                    {
+                        continue;
+                    }
+
+                    PagerEntry entry = _PagerEntries[rindex];
+                    entry.outstanding = "No";
+                    DateTime current = DateTime.Now;
+                    entry.displayTime = current.ToString("h:mm:ss tt");
+                    //Maybe could just dequeue directly?
+
+                    // make list, remove at index, recreate queue
+                    List<PagerEntry> tempList = displayQueue.ToList();
+                    tempList.RemoveAt(tempList.IndexOf(qitem));
+                    displayQueue = new Queue<PagerEntry>(tempList);
+                }
+
+                // update display text
+                displayText = "";
+                foreach (var qitem in displayQueue.ToList())
+                {
+                    int rindex = _PagerEntries.Count - qitem.index - 1;
+                    PagerEntry entry = _PagerEntries[rindex];
+                    UpdateDisplayText(entry.pagerText);
+                }
+
+                //Move items from predisplay to display
+                if (preDisplayQueue.Count > Int32.Parse(Settings.Default.threshold) - displayQueue.Count)
+                {
+                    for (int i = 0; i < Int32.Parse(Settings.Default.threshold); i++)
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
+                }
+                else
+                {
+                    foreach (var qitem in preDisplayQueue.ToList())
+                    {
+                        PagerEntry item = preDisplayQueue.Dequeue();
+                        displayQueue.Enqueue(item);
+                        UpdateDisplayText(item.pagerText);
+                    }
+                }
+
+                _dataLock.ReleaseMutex();
+
+                MainWindow.Instance.DisplayPagerText(displayText);
+                PagerListUpdated();
+            }
+            else
+            {
+                Console.WriteLine("ClearDisplayedItems failed getting mutex!");
+            }
+        }
+
+        /// <summary>
         /// Screen is no longer displayed so clear entries from the display queue
         ///  Any entries in the pre-display queue now move to the display queue
         ///  This function locks the data mutex while operating
