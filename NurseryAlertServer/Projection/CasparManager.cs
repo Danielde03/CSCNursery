@@ -154,7 +154,7 @@ namespace NurseryAlertServer.Projection
             }
             if (reconnecting)
             {
-                MessageBox.Show("Connected to CasparCG\n");
+                //MessageBox.Show("Connected to CasparCG\n");
             }
         }
 

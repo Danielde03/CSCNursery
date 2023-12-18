@@ -16,7 +16,7 @@
  *   along with this program; if not, write to the Free Software
  *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- *   Author: jdramer
+ *   Author: jdramer, Danielde03
  *
  *   Copyright (c) Holy Spirit
  *
@@ -179,13 +179,35 @@ namespace NurseryAlertServer
         }
 
         /// <summary>
-        /// Handler for the Mark Displayed button
+        /// Handler for the Mark Displayed button. If none are selected, mark all in display queue as displayed. 
+        /// If some are selected, mark only those as displayed and remove only those from display queue.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void toolStripButtonMarkDisplayed_Click(object sender, EventArgs e)
         {
-            PagerList.Instance.ClearDisplayedItems();
+            bool itemsSelected = false;
+
+            // check if any selected
+            for (int i = 0; i < listViewEntries.Items.Count; i++)
+            {
+                if (listViewEntries.Items[i].Selected)
+                {
+                    itemsSelected = true;
+                    break;
+                }
+            }
+
+            if (itemsSelected)
+            {
+                // remove specific items
+                PagerList.Instance.ClearSelectedDisplayedItems();
+            } else
+            {
+                // if none are selected
+                PagerList.Instance.ClearDisplayedItems();
+            }
+            
         }
 
         /// <summary>
@@ -201,6 +223,7 @@ namespace NurseryAlertServer
                 == DialogResult.Yes)
             {
                 PagerList.Instance.ClearList();
+                DisplayPagerText("");
             }
         }
 
