@@ -297,7 +297,7 @@ namespace NurseryAlertServer
                 //Move items from predisplay to display
                 if (preDisplayQueue.Count > Int32.Parse(Settings.Default.threshold) - displayQueue.Count)
                 {
-                    for (int i = 0; i < Int32.Parse(Settings.Default.threshold); i++)
+                    for (int i = 0; i < Int32.Parse(Settings.Default.threshold) - displayQueue.Count; i++)
                     {
                         PagerEntry item = preDisplayQueue.Dequeue();
                         displayQueue.Enqueue(item);
