@@ -95,10 +95,22 @@ namespace NurseryAlertServer.Web
                 Console.WriteLine("Exception: " + e.ToString());
                 writeFailure();
             }
-            outputStream.Flush();
-            // bs.Flush(); // flush any remaining output
+
+            // if issue with flushing, close socket and end thread. Move on to the next request.
+            try
+            {
+                outputStream.Flush();
+                // bs.Flush(); // flush any remaining output
+            } catch (IOException e)
+            {
+                Console.WriteLine("OutputStream Flush Exception: {0}", e.ToString());
+                Console.WriteLine("{0}", e.StackTrace);
+                
+            }
+            
             inputStream = null; outputStream = null; // bs = null;            
             socket.Close();
+            
         }
 
         public void parseRequest() {

@@ -103,8 +103,20 @@ namespace NurseryAlertServer.Projection
             }
             
             string displayText = String.Format("CG {0}-{1} ADD 1 \"{2}\" 1 \"<templateData><componentData id =\\\"{3}\\\"><data id=\\\"text\\\" value=\\\"{4}\\\"/></componentData></templateData>\"\\r\\n", channel, layer, template, textField, message);
-            writer.WriteLine(displayText);
-            writer.Flush();
+            
+            // if issue with socket, reconnect
+            try
+            {
+                writer.WriteLine(displayText);
+                writer.Flush();
+            } catch (IOException e)
+            {
+                Console.WriteLine("Caspar Write/Flush Exception: {0}", e.ToString());
+                Console.WriteLine("{0}", e.StackTrace);
+                Console.WriteLine("Attempting to reconnect");
+                connect();
+            }
+            
         }
 
         /// <summary>
@@ -154,7 +166,7 @@ namespace NurseryAlertServer.Projection
             }
             if (reconnecting)
             {
-                //MessageBox.Show("Connected to CasparCG\n");
+                MessageBox.Show("Reconnected to CasparCG\n");
             }
         }
 
