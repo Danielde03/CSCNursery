@@ -6,6 +6,6 @@
     "\\NurseryAlertServer\\Properties",
     "\\NurseryAlertServer\\Tally"
   ],
-  "SelectedNode": "\\NurseryAlertServer\\MainWindow.cs",
+  "SelectedNode": "\\NurseryAlertServer\\Projection\\CasparManager.cs",
   "PreviewInSolutionExplorer": false
 }
